@@ -1,0 +1,10 @@
+### Java ###
+*.class
+.idea
+.target
+.iml
+
+# Package Files #
+*.jar
+*.war
+*.ear
