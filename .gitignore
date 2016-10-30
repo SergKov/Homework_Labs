@@ -1,8 +1,11 @@
 ### Java ###
 *.class
+*.iml
+
+# Folders #
 .idea
 .target
-.iml
+
 
 # Package Files #
 *.jar
