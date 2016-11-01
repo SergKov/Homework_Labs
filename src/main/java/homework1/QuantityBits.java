@@ -1,5 +1,7 @@
 package homework1;
 
+import static homework1.Utils.*;
+
 /**
  * Created by koval on 29.10.2016.
  */
@@ -11,7 +13,7 @@ public class QuantityBits {
         int count = 0;
         int tmp = maskNumber;
         while (tmp != 0) {
-            count++;
+            count = addInts(count, 1);
             tmp >>>= 1;
         }
         return count;
@@ -23,7 +25,7 @@ public class QuantityBits {
         int count = 0;
         long tmp = maskNumber;
         while (tmp != 0) {
-            count++;
+            count = addInts(count, 1);
             tmp >>>= 1;
         }
         return count;
@@ -35,7 +37,7 @@ public class QuantityBits {
         int count = 0;
         byte tmp = maskNumber;
         while (tmp != 0) {
-            count++;
+            count = addInts(count, 1);
             tmp <<= 1;
         }
         return count;
@@ -47,7 +49,7 @@ public class QuantityBits {
         int count = 0;
         short tmp = maskNumber;
         while (tmp != 0) {
-            count++;
+            count = addInts(count, 1);
             tmp <<= 1;
         }
         return count;

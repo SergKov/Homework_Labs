@@ -1,5 +1,7 @@
 package homework1;
 
+import static homework1.Utils.*;
+
 /**
  * Created by koval on 30.10.2016.
  */
@@ -7,15 +9,15 @@ public class EvklidAlgorithm {
 
     public long findGreatestCommonDivisor(long a, long b) {
 
-        if (a == Long.MIN_VALUE || b == Long.MIN_VALUE) {
+        if (addLongs(a, -Long.MIN_VALUE) == 0 || addLongs(b, -Long.MIN_VALUE) == 0) {
             throw new UnsupportedOperationException("Very small number");
         }
 
-        if (a < 0) {
+        if (!isMoreZero(a)) {
             a = -a;
         }
 
-        if (b < 0) {
+        if (!isMoreZero(b)) {
             b = -b;
         }
 
@@ -29,7 +31,7 @@ public class EvklidAlgorithm {
             return b;
         }
 
-        if (b == 0 || a == b) {
+        if (b == 0 || addLongs(a, -b) == 0) {
             return a;
         }
 
@@ -45,7 +47,8 @@ public class EvklidAlgorithm {
             return findGreatestCommonDivisorRec(a, b >> 1);
         }
 
-        return (a > b) ? findGreatestCommonDivisorRec(a - b, b) : findGreatestCommonDivisorRec(a, b - a);
+        return (isMoreZero(addLongs(a, -b))) ?
+                findGreatestCommonDivisorRec(addLongs(a, -b), b) : findGreatestCommonDivisorRec(a, addLongs(a, -b));
     }
 
 }
