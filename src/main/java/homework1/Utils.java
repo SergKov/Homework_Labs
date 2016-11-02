@@ -29,7 +29,11 @@ public class Utils {
         return result;
     }
 
-    public static boolean isMoreZero(final long a) {
-        return (a & Integer.MIN_VALUE) == 0;
+    public static boolean isLongMoreZero(final long number) {
+        return (number & Long.MIN_VALUE) == 0;
+    }
+
+    public static boolean isIntMoreZero(final int number) {
+        return (number & Integer.MIN_VALUE) == 0;
     }
 }

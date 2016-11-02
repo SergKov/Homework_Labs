@@ -13,11 +13,11 @@ public class EvklidAlgorithm {
             throw new UnsupportedOperationException("Very small number");
         }
 
-        if (!isMoreZero(a)) {
+        if (!isLongMoreZero(a)) {
             a = -a;
         }
 
-        if (!isMoreZero(b)) {
+        if (!isLongMoreZero(b)) {
             b = -b;
         }
 
@@ -47,7 +47,7 @@ public class EvklidAlgorithm {
             return findGreatestCommonDivisorRec(a, b >> 1);
         }
 
-        return (isMoreZero(addLongs(a, -b))) ?
+        return (isLongMoreZero(addLongs(a, -b))) ?
                 findGreatestCommonDivisorRec(addLongs(a, -b), b) : findGreatestCommonDivisorRec(a, addLongs(a, -b));
     }
 
