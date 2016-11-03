@@ -9,7 +9,7 @@ import static homework1.Utils.*;
  */
 public class CaracubaMultiple {
 
-    public static BigInteger getMultipleRec(final BigInteger first, final BigInteger second) {
+    public BigInteger getMultipleRec(final BigInteger first, final BigInteger second) {
 
         int N = Math.max(first.bitLength(), second.bitLength());
 

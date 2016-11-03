@@ -38,9 +38,9 @@ public class CaracubaMultipleTest {
 
     @Test
     public void testNegativePositiveNumbers() {
-        final BigInteger first = new BigInteger("-6000000");
-        final BigInteger second = new BigInteger("6000000");
-        final BigInteger expected = new BigInteger("-36000000000000");
+        final BigInteger first = new BigInteger("-6000000000000");
+        final BigInteger second = new BigInteger("6000000000000");
+        final BigInteger expected = new BigInteger("-36000000000000000000000000");
         assertWithExpectedNumber(first, second, expected);
     }
 
