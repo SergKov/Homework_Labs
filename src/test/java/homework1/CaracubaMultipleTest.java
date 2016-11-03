@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by koval on 02.11.2016.
  */
@@ -46,6 +48,6 @@ public class CaracubaMultipleTest {
 
     private void assertWithExpectedNumber(final BigInteger first, final BigInteger second, final BigInteger expected) {
         final BigInteger result = caracubaMultiple.getMultipleRec(first, second);
-        Assert.assertEquals(result, expected);
+        assertEquals(result, expected);
     }
 }

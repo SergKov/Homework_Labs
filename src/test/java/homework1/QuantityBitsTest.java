@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by koval on 30.10.2016.
  */
@@ -16,7 +18,7 @@ public class QuantityBitsTest {
         final byte number = 12;
         final int expected = 8;
         final int result = quantityBits.getQuantityBits(number);
-        Assert.assertEquals(result, expected);
+        assertEquals(result, expected);
     }
 
     @Test
@@ -24,7 +26,7 @@ public class QuantityBitsTest {
         final short number = Short.MAX_VALUE;
         final int expected = 16;
         final int result = quantityBits.getQuantityBits(number);
-        Assert.assertEquals(result, expected);
+        assertEquals(result, expected);
     }
 
     @Test
@@ -32,7 +34,7 @@ public class QuantityBitsTest {
         final int number = Integer.MAX_VALUE;
         final int expected = 32;
         final int result = quantityBits.getQuantityBits(number);
-        Assert.assertEquals(result, expected);
+        assertEquals(result, expected);
     }
 
     @Test
@@ -40,7 +42,7 @@ public class QuantityBitsTest {
         final long number = Long.MIN_VALUE;
         final int expected = 64;
         final int result = quantityBits.getQuantityBits(number);
-        Assert.assertEquals(result, expected);
+        assertEquals(result, expected);
     }
 
     @Test(expected = UnsupportedOperationException.class)

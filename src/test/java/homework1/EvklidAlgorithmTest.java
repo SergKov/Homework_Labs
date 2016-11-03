@@ -3,6 +3,8 @@ package homework1;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by koval on 30.10.2016.
  */
@@ -43,6 +45,6 @@ public class EvklidAlgorithmTest {
 
     private void assertWithExpectedNumber(final long first, final long second, final long expected) {
         final long result = evklidAlgorithm.findGreatestCommonDivisor(first, second);
-        Assert.assertEquals(expected, result);
+        assertEquals(expected, result);
     }
 }

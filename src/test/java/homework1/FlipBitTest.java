@@ -3,6 +3,8 @@ package homework1;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by koval on 30.10.2016.
  */
@@ -60,7 +62,7 @@ public class FlipBitTest {
 
     private void assertWithExpectedNumber(final int number, final int pos, final int expected) {
         final int result = flipBit.flipBit(number, pos);
-        Assert.assertEquals(result, expected);
+        assertEquals(result, expected);
     }
 
 }
