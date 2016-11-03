@@ -11,24 +11,24 @@ public class CaracubaMultiple {
 
     public static BigInteger getMultipleRec(final BigInteger first, final BigInteger second) {
 
-        int max = Math.max(first.bitLength(), second.bitLength());
+        int N = Math.max(first.bitLength(), second.bitLength());
 
-        if (!isIntMoreZero(addInts(max, -2000))) {
+        if (!isIntMoreZero(addInts(N, -2000))) {
             return first.multiply(second);
         }
 
-        max = addInts(max >> 1, max % 2);
+        N = addInts(N >> 1, N % 2);
 
-        final BigInteger b = first.shiftRight(max);
-        final BigInteger a = first.subtract(b.shiftLeft(max));
-        final BigInteger d = second.shiftRight(max);
-        final BigInteger c = second.subtract(d.shiftLeft(max));
+        final BigInteger b = first.shiftRight(N);
+        final BigInteger a = first.subtract(b.shiftLeft(N));
+        final BigInteger d = second.shiftRight(N);
+        final BigInteger c = second.subtract(d.shiftLeft(N));
 
         final BigInteger ac = getMultipleRec(a, c);
         final BigInteger bd = getMultipleRec(b, d);
 
         final BigInteger abcd = getMultipleRec(a.add(b), c.add(d));
 
-        return ac.add(abcd.subtract(ac).subtract(bd).shiftLeft(max)).add(bd.shiftLeft(max >> 1));
+        return ac.add(abcd.subtract(ac).subtract(bd).shiftLeft(N)).add(bd.shiftLeft(N >> 1));
     }
 }

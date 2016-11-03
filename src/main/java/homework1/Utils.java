@@ -7,26 +7,33 @@ public class Utils {
 
     private Utils () { }
 
-    public static long addLongs(final long a, final long b) {
-        final long result = a ^ b;
-        final long carry = (a & b) << 1;
+    public static long addLongs(long a, long b) {
+        long result;
+        long carry;
 
-        if (!(carry == 0)) {
-            return addLongs(result, carry);
-        }
+        do {
+            result = a ^ b;
+            carry = (a & b) << 1;
+            a = result;
+            b = carry;
+        } while (carry != 0);
 
         return result;
     }
 
-    public static int addInts(final int a, final int b) {
-        final int result = a ^ b;
-        final int carry = (a & b) << 1;
+    public static int addInts(int a, int b) {
+        int result;
+        int carry;
 
-        if (!(carry == 0)) {
-            return addInts(result, carry);
-        }
+        do {
+            result = a ^ b;
+            carry = (a & b) << 1;
+            a = result;
+            b = carry;
+        } while (carry != 0);
 
         return result;
+
     }
 
     public static boolean isLongMoreZero(final long number) {
