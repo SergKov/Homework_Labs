@@ -210,4 +210,22 @@ public class LinkedListTest {
         final boolean result = list.contains(11);
         assertEquals(expected, result);
     }
+
+    @Test
+    public void requireResultWithContainsIndexOf() {
+        list.add(67);
+        list.add(-78);
+        list.add(Integer.MAX_VALUE);
+        final int expected = 2;
+        final int result = list.indexOf(Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void requireResultWithNonContainsIndexOf() {
+        list.add(67);
+        list.add(-78);
+        list.add(Integer.MAX_VALUE);
+        final int expected = -1;
+        final int result = list.indexOf(Integer.MIN_VALUE);
+    }
 }

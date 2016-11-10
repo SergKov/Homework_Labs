@@ -16,6 +16,7 @@ public class LinkedList<E> implements Iterable {
     }
 
     public boolean addAll(final Collection<E> c) {
+
         final int collectionSize = c.size();
 
         if (collectionSize == 0) {
@@ -29,7 +30,9 @@ public class LinkedList<E> implements Iterable {
     }
 
     public E get(final int index) {
+
         checkPositionIndex(index);
+
         if (index == 0) {
             return first.value;
         } else {
@@ -58,6 +61,7 @@ public class LinkedList<E> implements Iterable {
     }
 
     public boolean add(final int index, final E elem) {
+
         checkPositionIndex(index);
 
         if (index == size - 1) {
@@ -107,6 +111,7 @@ public class LinkedList<E> implements Iterable {
     }
 
     public E remove(final int index) {
+
         checkPositionIndex(index);
 
         Node<E> removedNode;
@@ -124,7 +129,6 @@ public class LinkedList<E> implements Iterable {
         }
 
         size--;
-
         return removedNode.value;
     }
 
@@ -136,17 +140,31 @@ public class LinkedList<E> implements Iterable {
         return containsValue(e, first);
     }
 
-    private boolean containsValue(E value, final Node<E> current) {
+    private boolean containsValue(final E value, final Node<E> current) {
+
         if (current == null) {
             return false;
         }
+
         return current.value.equals(value) || containsValue(value, current.next);
     }
 
-    public void set(int index, E elem) {
+    public void set(final int index, final E elem) {
         checkPositionIndex(index);
         final Node<E> current = getElement(index, first);
         current.value = elem;
+    }
+
+    public int indexOf(final E elem) {
+        if (!this.contains(elem)) {
+            return -1;
+        } else {
+            return findIndexByElement(0, elem, first);
+        }
+    }
+
+    private int findIndexByElement(final int index, final E elem, final Node<E> current) {
+        return elem.equals(current.value) ? index : findIndexByElement(index + 1, elem, current.next);
     }
 
     private Node<E> getElement(final int index, final Node<E> node) {

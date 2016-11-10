@@ -54,4 +54,9 @@ public class TextTest {
 
         assertTrue(output.contains("Java"));
     }
+
+    @Test
+    public void requireResultWithClone() throws CloneNotSupportedException {
+        text.equals(text.clone());
+    }
 }
