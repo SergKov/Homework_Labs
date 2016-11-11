@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by koval on 07.11.2016.
  */
-public class LinkedList<E> implements Iterable {
+public class LinkedList<E> implements Iterable<E> {
     private Node<E> first;
     private int size;
 

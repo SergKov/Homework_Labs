@@ -1,9 +1,9 @@
 package homework2.task2;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,9 +39,10 @@ public class Text implements Cloneable {
 
     @Override
     protected Object clone() throws CloneNotSupportedException {
+
         final Text text = (Text) super.clone();
 
-        if (sentences != null && !sentences.isEmpty()) {
+        if (!CollectionUtils.isEmpty(sentences)) {
             final List<Sentence> sentencesClone = new ArrayList<>();
             for (final Sentence sentence: sentences) {
                 sentencesClone.add((Sentence) sentence.clone());
@@ -95,7 +96,7 @@ public class Text implements Cloneable {
         protected Object clone() throws CloneNotSupportedException {
             final Sentence sentence = (Sentence) super.clone();
 
-            if (words != null && !words.isEmpty()) {
+            if (!CollectionUtils.isEmpty(words)) {
                 final List<Word> wordsClone = new ArrayList<>();
                 for (final Word word : words) {
                     wordsClone.add((Word) word.clone());
