@@ -30,11 +30,19 @@ public class Union<T extends Comparable<? super T>> {
     }
 
     public void sortUnion(final List<? extends T> union) {
+        if (union == null) {
+            throw new IllegalArgumentException("List can not be null");
+        }
+
         Collections.sort(union);
     }
 
     public <E extends Comparator<? super E>> void sortUnionWithOwnComparator(final List<? extends E> union,
                                                                              final Comparator<? super E> comparator) {
+        if (union == null || comparator == null) {
+            throw new IllegalArgumentException("Illegal arguments");
+        }
+        
         Collections.sort(union, comparator);
     }
 
