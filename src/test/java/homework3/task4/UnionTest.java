@@ -21,7 +21,7 @@ public class UnionTest {
     @Test
     public void requireResultUnionWithEmptyLists() {
 
-        final List<? super People> people = union.getUnion(ukrainian, english);
+        final List<? super People> people = union.getUnion(ukrainian, english, null);
 
         final int expected = 0;
         final int result = people.size();
@@ -41,7 +41,7 @@ public class UnionTest {
         english.add(new Girl(32));
         english.add(new Girl(56));
 
-        final List<? super People> unioned = union.getUnion(ukrainian, english);
+        final List<? super People> unioned = union.getUnion(ukrainian, english, null);
 
         final int expected = ukrainian.size() + english.size();
         final int result = unioned.size();
@@ -62,15 +62,13 @@ public class UnionTest {
         english.add(new Girl(32));
         english.add(new Girl(56));
 
-        final List<People> unioned = (List<People>) union.getUnion(ukrainian, english);
-
-        union.sortUnion(unioned);
+        final List<People> unioned = union.getUnion(ukrainian, english, null);
 
         final Iterator<People> iter = unioned.iterator();
         People currentPerson = iter.next();
         while (iter.hasNext()) {
             final People person = iter.next();
-            assertTrue(currentPerson.compareTo(person) < 0);
+            assertTrue(currentPerson.compareTo(person) <= 0);
             currentPerson = person;
         }
     }
@@ -87,10 +85,33 @@ public class UnionTest {
         english.add(new Girl(32));
         english.add(new Girl(56));
 
-        final List<People> unioned = (List<People>) union.getUnion(ukrainian, english);
+        final List<People> unioned = union.getUnion(ukrainian, english, null);
 
         ukrainian.forEach(person -> assertTrue(unioned.contains(person)));
         english.forEach(person -> assertTrue(unioned.contains(person)));
+    }
+
+    @Test
+    public void requireResultSortUnionWithOwnComparator() {
+        ukrainian.add(new Girl(24));
+        ukrainian.add(new Girl(67));
+        ukrainian.add(new Girl(37));
+        ukrainian.add(new Boy(28));
+        ukrainian.add(new Boy(62));
+
+        english.add(new Girl(45));
+        english.add(new Girl(32));
+        english.add(new Girl(56));
+
+        final List<People> unioned = union.getUnion(ukrainian, english, (o1, o2) -> o2.getAge() - o1.getAge());
+
+        final Iterator<People> iter = unioned.iterator();
+        People currentPerson = iter.next();
+        while (iter.hasNext()) {
+            final People person = iter.next();
+            assertTrue(currentPerson.compareTo(person) >= 0);
+            currentPerson = person;
+        }
     }
 
 }

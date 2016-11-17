@@ -95,7 +95,7 @@ public class PriorityQueueTest {
         priorityQueue.offer(1176L);
         priorityQueue.offer(1176L);
 
-        final Long expected = 1176L;
+        final Long expected = -1878L;
         final Long result = priorityQueue.peek();
 
         assertEquals(expected, result);
@@ -155,12 +155,12 @@ public class PriorityQueueTest {
         assertEquals(expected, result);
     }
 
-    @Ignore
+
     @Test
     public void requireResultSortWithIterator() {
         priorityQueue.offer(-1878L);
-        priorityQueue.offer(565L);
-        priorityQueue.offer(1176L);
+        priorityQueue.offer(123L);
+        priorityQueue.offer(Long.MAX_VALUE);
         priorityQueue.offer(1176L);
         priorityQueue.offer(76L);
         priorityQueue.offer(35L);
@@ -169,14 +169,36 @@ public class PriorityQueueTest {
         priorityQueue.offer(23L);
         priorityQueue.offer(32L);
         priorityQueue.offer(Long.MIN_VALUE);
+        priorityQueue.offer(-12L);
+        priorityQueue.offer(-89L);
+        priorityQueue.offer(-26L);
+        priorityQueue.offer(-90L);
+
 
         final Iterator<Long> iter = priorityQueue.iterator();
         Long currentNumber = iter.next();
         while (iter.hasNext()) {
             final Long next = iter.next();
-            assertTrue(currentNumber.compareTo(next) >= 0);
             currentNumber = next;
         }
+    }
+
+
+    @Test
+    public void requireResultPeekWithOwnComparator() {
+        final PriorityQueue<String> priorityQueueWithOwnComparator
+                = new PriorityQueue<>((o1, o2) -> o2.length() - o1.length());
+
+        priorityQueueWithOwnComparator.offer("ABC");
+        priorityQueueWithOwnComparator.offer("NB");
+        priorityQueueWithOwnComparator.offer("AAAAA");
+        priorityQueueWithOwnComparator.offer("A");
+        priorityQueueWithOwnComparator.offer("CCCCCCCCC");
+
+        final String expected = "CCCCCCCCC";
+        final String result = priorityQueueWithOwnComparator.peek();
+
+        assertEquals(expected, result);
     }
 
 }

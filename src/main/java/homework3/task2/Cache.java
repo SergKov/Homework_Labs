@@ -18,11 +18,11 @@ public class Cache {
         cache = new HashMap<>();
     }
 
-    public void put(final String key) {
+    public void put(final String key) throws IOException {
         cache.put(key, new SoftReference<>(getFromFile(key)));
     }
 
-    public byte[] get(final String key) {
+    public byte[] get(final String key) throws IOException {
         final Optional<SoftReference<byte[]>> optionalValue = Optional.of(cache.get(key));
         if (optionalValue.isPresent()) {
             final byte[] value = cache.get(key).get();
@@ -32,16 +32,12 @@ public class Cache {
         }
     }
 
-    private byte[] getFromFile(final String string) {
+    private byte[] getFromFile(final String string) throws IOException {
         final Path path = Paths.get(string);
-        try {
-            return Files.readAllBytes(path);
-        } catch (final IOException e) {
-            throw new IllegalArgumentException("Incorrect parameters");
-        }
+        return Files.readAllBytes(path);
     }
 
-    private byte[] findFromFileAndPutToCache(final String key) {
+    private byte[] findFromFileAndPutToCache(final String key) throws IOException {
         final byte[] fromFile = getFromFile(key);
         cache.put(key, new SoftReference<>(fromFile));
         return fromFile;

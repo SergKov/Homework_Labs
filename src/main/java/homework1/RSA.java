@@ -8,15 +8,15 @@ import java.util.Random;
  */
 public class RSA {
 
-    private final static int BIT_LENGTH = 128;
+    private final static int BIT_LENGTH = 1024;
 
-    private BigInteger p;
-    private BigInteger q;
-    private BigInteger N;
-    private BigInteger v;
-    private BigInteger k;
-    private BigInteger d;
-    private Random random;
+    private final BigInteger p;
+    private final BigInteger q;
+    private final BigInteger N;
+    private final BigInteger v;
+    private final BigInteger k;
+    private final BigInteger d;
+    private final Random random;
 
     public RSA() {
         random = new Random();
@@ -25,11 +25,6 @@ public class RSA {
         N = p.multiply(q);
         v = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE));
         k = BigInteger.probablePrime(BIT_LENGTH >> 1, random);
-
-        while (v.gcd(k).compareTo(BigInteger.ONE) > 0 && k.compareTo(v) < 0 ) {
-            k.add(BigInteger.ONE);
-        }
-
         d = k.modInverse(v);
     }
 
@@ -45,6 +40,11 @@ public class RSA {
     }
 
     public byte[] encrypt(final byte[] message) {
+
+        if (message.length > N.intValue()) {
+            throw new IllegalArgumentException("Too big string");
+        }
+
         return (new BigInteger(message)).modPow(k, N).toByteArray();
     }
 

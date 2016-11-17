@@ -60,7 +60,7 @@ public class Payment {
 
         private final double price;
 
-        private Goods(double price) {
+        Goods(double price) {
             this.price = price;
         }
 

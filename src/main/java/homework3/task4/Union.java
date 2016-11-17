@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by koval on 13.11.2016.
  */
-public class Union<T extends Comparable<? super T>> {
+public class Union<T> {
     private List<T> first;
     private List<T> second;
 
@@ -19,31 +19,24 @@ public class Union<T extends Comparable<? super T>> {
         this.second = second;
     }
 
-    public List<? super T> getUnion(final List<? super T> dst, final List<? extends T> src) {
+    public List<T> getUnion(final List<? super T> dst, final List<? extends T> src,
+                                    final Comparator<? super T> comparator) {
+
         if (dst == null || src == null) {
             throw new IllegalArgumentException("Lists can not be null");
         }
 
-        final List<? super T> union = new ArrayList<>(dst);
-        union.addAll(src);
-        return union;
-    }
+        final List<? super T> unioned = new ArrayList<>(dst);
 
-    public void sortUnion(final List<? extends T> union) {
-        if (union == null) {
-            throw new IllegalArgumentException("List can not be null");
+        unioned.addAll(src);
+
+        if (comparator == null) {
+            Collections.sort((List<? extends Comparable>) unioned);
+        } else {
+            Collections.sort((List<T>) unioned, comparator);
         }
 
-        Collections.sort(union);
-    }
-
-    public <E extends Comparator<? super E>> void sortUnionWithOwnComparator(final List<? extends E> union,
-                                                                             final Comparator<? super E> comparator) {
-        if (union == null || comparator == null) {
-            throw new IllegalArgumentException("Illegal arguments");
-        }
-        
-        Collections.sort(union, comparator);
+        return (List<T>) unioned;
     }
 
     public List<T> getFirst() {
