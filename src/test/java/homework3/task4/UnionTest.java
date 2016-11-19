@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class UnionTest {
 
-    private final List<? super People> ukrainian = new ArrayList<>();
+    private final List<People> ukrainian = new ArrayList<>();
     private final List<Girl> english = new ArrayList<>();
     private final Union<People> union = new Union<>();
 

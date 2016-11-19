@@ -19,7 +19,7 @@ public class Computer {
         this.os = os;
     }
 
-    private void validate(final RAM ram, final CPU cpu, final OS os) {
+    private static void validate(final RAM ram, final CPU cpu, final OS os) {
         if (ram == null || os == null || cpu == null) {
             throw new IllegalStateException(PARAMETERS_NULL);
         }
@@ -37,7 +37,7 @@ public class Computer {
             this.speed = speed;
         }
 
-        private void validate(final Maker maker, final int space, final int speed) {
+        private static void validate(final Maker maker, final int space, final int speed) {
             if (maker == null || space <= 0 || speed <= 0) {
                 throw new IllegalStateException(ILLEGAL_ARGUMENTS);
             }
@@ -71,7 +71,7 @@ public class Computer {
             this.type = type;
         }
 
-        private void validate(final Type type) {
+        private static void validate(final Type type) {
             if (type == null) {
                 throw new IllegalStateException(ILLEGAL_TYPE_OF_OS);
             }
@@ -96,7 +96,7 @@ public class Computer {
             this.speed = speed;
         }
 
-        private void validate(final Maker maker, final int speed) {
+        private static void validate(final Maker maker, final int speed) {
             if (maker == null || speed <= 0) {
                 throw new IllegalStateException(ILLEGAL_ARGUMENTS);
             }

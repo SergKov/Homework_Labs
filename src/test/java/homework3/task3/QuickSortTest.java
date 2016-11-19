@@ -1,16 +1,15 @@
 package homework3.task3;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by koval on 15.11.2016.

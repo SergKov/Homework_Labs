@@ -1,6 +1,5 @@
 package homework2.task4;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -87,11 +86,8 @@ public class LinkedList<E> implements Iterable<E> {
     }
 
     public boolean addAll(final int index, final Collection<E> c) {
-
         checkIndexIsInBoundsIsEqualsToSize(index);
-
         c.forEach(this::add);
-
         return true;
     }
 
@@ -203,18 +199,18 @@ public class LinkedList<E> implements Iterable<E> {
         }
     }
 
-    public boolean remove(final Object o) {
+    public boolean remove(final E obj) {
         if (this.isEmpty()) {
             return false;
         } else {
             Node<E> start = first;
             while (start != null) {
                 final E elem = start.element;
-                if (isNullElements(elem, o)) {
+                if (isNullElements(elem, obj)) {
                     start.prev = start.next;
                     size--;
                     return true;
-                } else if (elem.equals(o)) {
+                } else if (elem.equals(obj)) {
                     start.prev = start.next;
                     start.next = start.prev;
                     size--;

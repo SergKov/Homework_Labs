@@ -8,10 +8,10 @@ import java.lang.ref.ReferenceQueue;
  * Created by koval on 17.11.2016.
  */
 class A {
-
+    // for tests
 }
 
-public class PhantomReferenceFactory {
+public class PhantomReferenceFactory { // get object
 
     private static final ReferenceQueue queue = new ReferenceQueue();
 
@@ -46,7 +46,7 @@ public class PhantomReferenceFactory {
         }
     }
 
-    private PhantomReference initPhantomReference(final Object obj) {
+    private static PhantomReference initPhantomReference(final Object obj) {
         final PhantomReference phantomRef = new PhantomReference(obj, queue);
         count++;
         return phantomRef;

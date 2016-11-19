@@ -1,6 +1,7 @@
 package homework1;
 
-import static homework1.Utils.*;
+import static homework1.Utils.addLongs;
+import static homework1.Utils.isLongMoreZero;
 
 /**
  * Created by koval on 30.10.2016.

@@ -1,7 +1,5 @@
 package homework2.task2;
 
-import java.util.Arrays;
-
 /**
  * Created by koval on 10.11.2016.
  */
@@ -24,7 +22,7 @@ public class Array<E extends Number> {
     public void add(final Element<E>[] other) {
         checkArraysSize(other);
         for (int i = 0; i < array.length; i++) {
-            final Double sum = array[i].element.doubleValue() + other[i].element.doubleValue();
+            final Double sum = (Double) array[i].element + (Double) other[i].element;
             array[i].setElement((E)sum);
         }
     }

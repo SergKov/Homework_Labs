@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static homework2.task5.Payment.Goods.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by koval on 11.11.2016.

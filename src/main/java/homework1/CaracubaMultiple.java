@@ -2,7 +2,8 @@ package homework1;
 
 import java.math.BigInteger;
 
-import static homework1.Utils.*;
+import static homework1.Utils.addInts;
+import static homework1.Utils.isIntMoreZero;
 
 /**
  * Created by koval on 30.10.2016.

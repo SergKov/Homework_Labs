@@ -2,7 +2,9 @@ package homework3.task3;
 
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by koval on 14.11.2016.
@@ -16,7 +18,7 @@ public class QuickSort {
         quickSort(list, 0, list.size() - 1, comparator);
     }
 
-    private static <E> void quickSort(final List<? extends E> list, final int left, final int right,
+    private static <E> void quickSort(final List<E> list, final int left, final int right,
                                                                     final Comparator<? super E> comparator) {
 
         final int indexPartition = partition(list, left, right, comparator);

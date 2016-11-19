@@ -1,6 +1,5 @@
 package homework3.task5;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Iterator;

@@ -1,6 +1,6 @@
 package homework2.task1;
 
-import static java.lang.Math.*;
+import static java.lang.Math.sqrt;
 
 /**
  * Created by koval on 06.11.2016.

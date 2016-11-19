@@ -1,10 +1,9 @@
 package homework2.task1;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import static homework2.task1.ShapeTest.DELTA;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by koval on 07.11.2016.

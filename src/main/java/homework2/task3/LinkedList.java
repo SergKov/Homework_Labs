@@ -1,6 +1,8 @@
 package homework2.task3;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by koval on 07.11.2016.

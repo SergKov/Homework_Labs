@@ -1,6 +1,9 @@
 package homework3.task5;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Created by koval on 12.11.2016.

@@ -19,7 +19,7 @@ public class Union<T> {
         this.second = second;
     }
 
-    public List<T> getUnion(final List<? super T> dst, final List<? extends T> src,
+    public List<T> getUnion(final List<? extends T> dst, final List<? extends T> src,
                                     final Comparator<? super T> comparator) {
 
         if (dst == null || src == null) {

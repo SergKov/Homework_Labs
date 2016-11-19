@@ -1,6 +1,6 @@
 package homework1;
 
-import static homework1.Utils.*;
+import static homework1.Utils.addInts;
 
 /**
  * Created by koval on 29.10.2016.

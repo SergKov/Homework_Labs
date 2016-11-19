@@ -1,7 +1,5 @@
 package homework3.task4;
 
-import java.util.Comparator;
-
 /**
  * Created by koval on 13.11.2016.
  */

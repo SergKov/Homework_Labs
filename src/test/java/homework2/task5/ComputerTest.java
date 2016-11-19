@@ -1,9 +1,8 @@
 package homework2.task5;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created by koval on 17.11.2016.

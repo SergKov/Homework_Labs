@@ -1,16 +1,13 @@
 package homework2.task2;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by koval on 08.11.2016.
