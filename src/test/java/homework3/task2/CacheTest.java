@@ -1,25 +1,30 @@
 package homework3.task2;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by koval on 15.11.2016.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class CacheTest {
 
+    @Spy
     private Cache cache = new Cache();
 
     @Test
@@ -43,7 +48,7 @@ public class CacheTest {
         assertArrayEquals(readFromFile, readFromCache);
     }
 
-    @Test(timeout = 15L)
+    @Test
     public void requireResultWithRepeatableReadFromCache() throws IOException {
         final String nameOfFile = "D:/tmp/2.txt";
         cache.put(nameOfFile);
@@ -52,25 +57,10 @@ public class CacheTest {
         cache.get(nameOfFile);
         cache.get(nameOfFile);
         cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
-        cache.get(nameOfFile);
+
+        verify(cache, atLeast(1)).getFromCache(anyString());
+        verify(cache, times(0)).findFromFileAndPutToCache(anyString());
+        verify(cache, times(1)).getFromFile(anyString());
     }
 
     @Test
