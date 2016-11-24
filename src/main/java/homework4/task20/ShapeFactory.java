@@ -7,7 +7,7 @@ public class ShapeFactory {
 
     private static final ShapeFactory instance = new ShapeFactory();
 
-    public ShapeFactory getInstance() {
+    public static ShapeFactory getInstance() {
         return instance;
     }
 
