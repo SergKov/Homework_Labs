@@ -5,19 +5,13 @@ package homework4.task20;
  */
 public class Shape {
 
-    private final int x;
-    private final int y;
+    private final String name;
 
-    public Shape(int x, int y) {
-        this.x = x;
-        this.y = y;
+    Shape(String name) {
+        this.name = name;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public String getName() {
+        return name;
     }
 }
