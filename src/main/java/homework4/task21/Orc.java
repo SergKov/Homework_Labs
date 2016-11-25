@@ -21,11 +21,11 @@ public class Orc {
         LOG.debug(ORC_GOING);
     }
 
-    public GoStrategy getGoStrategy() {
+    public GoStrategy getStrategy() {
         return goStrategy;
     }
 
-    public void setGoStrategy(GoStrategy goStrategy) {
+    public void setStrategy(GoStrategy goStrategy) {
         this.goStrategy = goStrategy;
     }
 }

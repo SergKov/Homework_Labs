@@ -15,23 +15,32 @@ public class Elf {
     private FlyStrategy flyStrategy;
     private GoStrategy goStrategy;
 
+    private boolean isFlying;
+
     public Elf(FlyStrategy flyStrategy, GoStrategy goStrategy) {
         this.flyStrategy = flyStrategy;
         this.goStrategy = goStrategy;
     }
 
     public void executeStrategy() {
-        flyStrategy.move();
-        LOG.debug(ELF_GOING);
-        goStrategy.move();
-        LOG.debug(ELF_FLYING);
+        if (isFlying) {
+            flyStrategy.move();
+            LOG.debug(ELF_FLYING);
+        } else {
+            goStrategy.move();
+            LOG.debug(ELF_GOING);
+        }
     }
 
-    public GoStrategy getGoStrategy() {
-        return goStrategy;
+    public Strategy getStrategy() {
+        return isFlying ? flyStrategy : goStrategy;
     }
 
-    public void setGoStrategy(GoStrategy goStrategy) {
-        this.goStrategy = goStrategy;
+    public boolean isFlying() {
+        return isFlying;
+    }
+
+    public void setFlying(boolean flying) {
+        isFlying = flying;
     }
 }

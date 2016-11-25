@@ -22,11 +22,11 @@ public class Harpy {
         LOG.debug(HARPY_FLYING);
     }
 
-    public FlyStrategy getFlyStrategy() {
+    public FlyStrategy getStrategy() {
         return flyStrategy;
     }
 
-    public void setFlyStrategy(FlyStrategy flyStrategy) {
+    public void setStrategy(FlyStrategy flyStrategy) {
         this.flyStrategy = flyStrategy;
     }
 }

@@ -14,26 +14,36 @@ public class Vampire {
     private GoStrategy goStrategy;
     private FlyStrategy flyStrategy;
 
+    private boolean isMagic;
+
+    public Vampire(GoStrategy goStrategy) {
+        this.goStrategy = goStrategy;
+    }
+
     public Vampire(GoStrategy goStrategy, FlyStrategy flyStrategy) {
         this.goStrategy = goStrategy;
         this.flyStrategy = flyStrategy;
     }
 
     public void executeStrategy() {
-        goStrategy.move();
-        LOG.debug(VAMPIRE_GOING);
+        if (isMagic) {
+            flyStrategy.move();
+            LOG.debug(VAMPIRE_FLYING);
+        } else {
+            goStrategy.move();
+            LOG.debug(VAMPIRE_GOING);
+        }
     }
 
-    public void executeMagic() {
-        flyStrategy.move();
-        LOG.debug(VAMPIRE_FLYING);
+    public boolean isMagic() {
+        return isMagic;
     }
 
-    public GoStrategy getGoStrategy() {
-        return goStrategy;
+    public void setMagic(boolean magic) {
+        isMagic = magic;
     }
 
-    public void setGoStrategy(GoStrategy goStrategy) {
-        this.goStrategy = goStrategy;
+    public Strategy getStrategy() {
+        return isMagic ? flyStrategy : goStrategy;
     }
 }
