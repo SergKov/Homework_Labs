@@ -3,10 +3,8 @@ package homework4.task21;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -15,33 +13,76 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class StrategyTest {
 
-    @Spy
-    private final Vampire vampire = new Vampire(new GoStrategy(), new FlyStrategy());
-
     @Mock
     private FlyStrategy flyStrategy;
 
     @Mock
-    private Troll troll;
-
-    @Mock
-    private Orc orc;
-
-    @Mock
-    private Elf elf;
-
-    @Mock
-    private Harpy harpy;
+    private GoStrategy goStrategy;
 
     @Test
-    public void requireResultWithHarpy() {
-        vampire.executeStrategy();
+    public void requireResultVampireStrategyWithMagic() {
+        final Vampire vampire = new Vampire(goStrategy, flyStrategy);
         vampire.setMagic(true);
-        verify(flyStrategy, times(1)).move();
-//        when(vampire.getGoStrategy()).thenReturn(new GoStrategy());
-//        when(troll.getGoStrategy()).thenReturn(new GoStrategy());
-//        when(orc.getGoStrategy()).thenReturn(new GoStrategy());
-//        when(harpy.getFlyStrategy()).thenReturn(new FlyStrategy());
-//        when(elf.getGoStrategy()).thenReturn(new GoStrategy());
+        vampire.executeStrategy();
+        verify(flyStrategy).move();
+    }
+
+    @Test
+    public void requireResultVampireStrategyGoStrategyWithoutMagic() {
+        final Vampire vampire = new Vampire(goStrategy, flyStrategy);
+        vampire.setMagic(false);
+        vampire.executeStrategy();
+        verify(goStrategy).move();
+    }
+
+    @Test
+    public void requireResultVampireStrategyByDefault() {
+        final Vampire vampire = new Vampire(goStrategy, flyStrategy);
+        vampire.executeStrategy();
+        verify(goStrategy).move();
+    }
+
+    @Test
+    public void requireResultElfStrategyGoStrategyWithFlying() {
+        final Elf elf = new Elf(goStrategy, flyStrategy);
+        elf.setFlying(true);
+        elf.executeStrategy();
+        verify(flyStrategy).move();
+    }
+
+    @Test
+    public void requireResultElfStrategyGoStrategyWithGoing() {
+        final Elf elf = new Elf(goStrategy, flyStrategy);
+        elf.setFlying(false);
+        elf.executeStrategy();
+        verify(goStrategy).move();
+    }
+
+    @Test
+    public void requireResultElfStrategyGoStrategyByDefault() {
+        final Elf elf = new Elf(goStrategy, flyStrategy);
+        elf.executeStrategy();
+        verify(flyStrategy).move();
+    }
+
+    @Test
+    public void requireResultHarpy() {
+        final Harpy harpy = new Harpy(flyStrategy);
+        harpy.executeStrategy();
+        verify(flyStrategy).move();
+    }
+
+    @Test
+    public void requireResultOrc() {
+        final Orc orc = new Orc(goStrategy);
+        orc.executeStrategy();
+        verify(goStrategy).move();
+    }
+
+    @Test
+    public void requireResultTroll() {
+        final Troll troll = new Troll(goStrategy);
+        troll.executeStrategy();
+        verify(goStrategy).move();
     }
 }

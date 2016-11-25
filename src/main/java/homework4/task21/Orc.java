@@ -22,6 +22,7 @@ public class Orc {
     }
 
     public GoStrategy getStrategy() {
+        goStrategy.move();
         return goStrategy;
     }
 

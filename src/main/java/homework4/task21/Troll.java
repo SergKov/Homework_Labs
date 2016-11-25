@@ -18,6 +18,7 @@ public class Troll {
     }
 
     public void executeStrategy() {
+        goStrategy.move();
         LOG.debug(TROLL_GOING);
     }
 

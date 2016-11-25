@@ -12,14 +12,16 @@ public class Elf {
     private static final String ELF_GOING = "Elf is going";
     private static final String ELF_FLYING = "Elf is flying";
 
-    private FlyStrategy flyStrategy;
     private GoStrategy goStrategy;
+    private FlyStrategy flyStrategy;
+
 
     private boolean isFlying;
 
-    public Elf(FlyStrategy flyStrategy, GoStrategy goStrategy) {
-        this.flyStrategy = flyStrategy;
+    public Elf(GoStrategy goStrategy, FlyStrategy flyStrategy) {
         this.goStrategy = goStrategy;
+        this.flyStrategy = flyStrategy;
+        isFlying = true;
     }
 
     public void executeStrategy() {
