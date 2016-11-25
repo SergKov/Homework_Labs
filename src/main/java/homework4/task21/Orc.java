@@ -18,6 +18,7 @@ public class Orc {
     }
 
     public void executeStrategy() {
+        goStrategy.move();
         LOG.debug(ORC_GOING);
     }
 
