@@ -14,8 +14,8 @@ public class CheckBalance extends AbstractOperation {
 
     private static final Logger LOG = Logger.getLogger(CheckBalance.class);
 
-    private static final String CHECKED_BALANCE = "Current ballance was chacked successfully";
-    private static final String NOT_ENOUGH = "Current ballance does not have enough money";
+    private static final String CHECKED_BALANCE = "Current balance was checked successfully";
+    private static final String NOT_ENOUGH = "Current balance does not have enough money";
 
     public CheckBalance(AbstractOperation nextOperation) {
         super(nextOperation);
@@ -34,10 +34,7 @@ public class CheckBalance extends AbstractOperation {
             }
         } else {
             LOG.warn(NOT_ENOUGH);
+            throw new IllegalArgumentException(NOT_ENOUGH);
         }
-    }
-
-    private boolean isAppropriateBalance(final Money balance) {
-        return balance.isPositive();
     }
 }

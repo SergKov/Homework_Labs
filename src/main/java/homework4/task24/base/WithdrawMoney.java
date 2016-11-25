@@ -21,17 +21,8 @@ public class WithdrawMoney extends AbstractOperation {
     }
 
     @Override
-    public void doOperation(final CreditCart creditCart, final Money money) {
-
-        getValidationFactory().validateNull(money);
-
-        final Money percent = money.dividedBy(10, RoundingMode.FLOOR);
-        final Money priceWithPercent = money.plus(percent);
-
-        getValidationFactory().validate(money.minus(priceWithPercent));
-
+    public void doOperation(final CreditCart creditCart, final Money priceWithPercent) {
         creditCart.withdrawMoney(priceWithPercent);
-
         LOG.debug(WITHDRAWN_MONEY);
     }
 }

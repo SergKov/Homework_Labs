@@ -21,9 +21,14 @@ public class ChainOfResponsibilityTest {
         final WithdrawMoney withdrawMoney = new WithdrawMoney(null);
         final CheckBalance checkBalance = new CheckBalance(withdrawMoney);
 
-        withdrawMoney.doOperation(creditCart, Money.of(CurrencyUnit.USD, 10));
+        final Money price = Money.of(CurrencyUnit.USD, 10);
 
-        assertEquals(creditCart.getBalance(), Money.of(CurrencyUnit.USD, 89));
+        checkBalance.doOperation(creditCart, price);
+
+        final Money expected = Money.of(CurrencyUnit.USD, 89);
+        final Money result = creditCart.getBalance();
+
+        assertEquals(expected, result);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -32,7 +37,9 @@ public class ChainOfResponsibilityTest {
         final WithdrawMoney withdrawMoney = new WithdrawMoney(null);
         final CheckBalance checkBalance = new CheckBalance(withdrawMoney);
 
-        withdrawMoney.doOperation(creditCart, Money.of(CurrencyUnit.USD, 200));
+        final Money price = Money.of(CurrencyUnit.USD, 200);
+
+        checkBalance.doOperation(creditCart, price);
     }
 
 }
