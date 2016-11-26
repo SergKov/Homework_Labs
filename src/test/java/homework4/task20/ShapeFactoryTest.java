@@ -13,20 +13,14 @@ public class ShapeFactoryTest {
 
     private final ShapeFactory shapeFactory = ShapeFactory.getInstance();
 
-    private final Shape shape = shapeFactory.createShape(ShapeFactory.L_SHAPE);
-
     @Test(expected = IllegalStateException.class)
     public void requireResultWithNullParameter() {
         shapeFactory.createShape(null);
     }
 
-    @Test(expected = IllegalStateException.class)
-    public void requireResultWithIncorrectParameter() {
-        shapeFactory.createShape("Lshape");
-    }
-
     @Test
     public void requireResultWithLShape() {
+        final Shape shape = shapeFactory.createShape(Figure.L_SHAPE);
         assertNotNull(shape);
     }
 }

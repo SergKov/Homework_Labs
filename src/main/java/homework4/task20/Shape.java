@@ -5,13 +5,13 @@ package homework4.task20;
  */
 public class Shape {
 
-    private final String name;
+    private final Figure name;
 
-    Shape(String name) {
+    Shape(Figure name) {
         this.name = name;
     }
 
-    public String getName() {
+    public Figure getName() {
         return name;
     }
 }

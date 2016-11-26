@@ -5,11 +5,8 @@ package homework4.task19;
  */
 public class Article implements Cloneable {
 
-    private String title;
+    private final String title;
     private String text;
-
-    Article() {
-    }
 
     Article(String title, String text) {
         this.title = title;

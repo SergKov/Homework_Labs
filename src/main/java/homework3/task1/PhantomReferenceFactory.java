@@ -11,7 +11,7 @@ class A {
     // for tests
 }
 
-public class PhantomReferenceFactory { // get object
+public class PhantomReferenceFactory {
 
     private static final ReferenceQueue queue = new ReferenceQueue();
 

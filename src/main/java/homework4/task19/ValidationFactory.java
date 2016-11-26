@@ -14,7 +14,7 @@ public class ValidationFactory {
     private static final String PAGE_ILLEGAL = "The page can not be less than 0";
     private static final String ARTICLE_NULL = "The article can not be null";
 
-    public static final ValidationFactory instance = new ValidationFactory();
+    private static final ValidationFactory instance = new ValidationFactory();
 
     public static ValidationFactory getInstance() {
         return instance;

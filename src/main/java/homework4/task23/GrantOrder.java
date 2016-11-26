@@ -23,3 +23,15 @@ public interface GrantOrder {
 
     void getState();
 }
+
+/*abstract class C {
+    public class D {
+
+    }
+}
+
+class E extends C {
+    public static void main(String[] args) {
+        new E().new D();
+    }
+}*/
