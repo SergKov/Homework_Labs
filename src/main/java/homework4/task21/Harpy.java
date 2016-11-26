@@ -25,8 +25,4 @@ public class Harpy {
     public FlyStrategy getStrategy() {
         return flyStrategy;
     }
-
-    public void setStrategy(FlyStrategy flyStrategy) {
-        this.flyStrategy = flyStrategy;
-    }
 }

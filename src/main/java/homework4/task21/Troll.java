@@ -25,8 +25,4 @@ public class Troll {
     public GoStrategy getStrategy() {
         return goStrategy;
     }
-
-    public void setStrategy(GoStrategy goStrategy) {
-        this.goStrategy = goStrategy;
-    }
 }

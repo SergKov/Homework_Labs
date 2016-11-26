@@ -23,11 +23,6 @@ public class Orc {
     }
 
     public GoStrategy getStrategy() {
-        goStrategy.move();
         return goStrategy;
-    }
-
-    public void setStrategy(GoStrategy goStrategy) {
-        this.goStrategy = goStrategy;
     }
 }
