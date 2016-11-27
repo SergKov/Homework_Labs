@@ -1,4 +1,4 @@
-package laba1;
+package laba1.appliances;
 
 /**
  * Created by koval on 27.11.2016.

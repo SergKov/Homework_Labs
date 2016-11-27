@@ -1,6 +1,5 @@
 package laba1.appliances;
 
-import laba1.Appliance;
 import laba1.sokets.Soket;
 
 /**
@@ -13,6 +12,17 @@ public abstract class AbstractAppliance {
 
     public abstract void turnOn(Soket soket);
 
+    protected void adaptPlugAndTurnOn(PlugType plugType, final Soket soket) {
+        if (!isTurnedOn) {
+            if (plugType != soket.getPlugType()) {
+                plugType = soket.getPlugType();
+                isTurnedOn = true;
+            } else {
+                isTurnedOn = true;
+            }
+        }
+    }
+
     public void turnOff() {
         isTurnedOn = false;
     }
@@ -24,4 +34,6 @@ public abstract class AbstractAppliance {
     public abstract double getPower();
 
     public abstract Appliance getName();
+
+    public abstract String getMark();
 }

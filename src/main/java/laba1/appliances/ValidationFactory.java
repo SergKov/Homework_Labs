@@ -1,7 +1,6 @@
-package laba1.factories.validate;
+package laba1.appliances;
 
-import laba1.Appliance;
-import laba1.appliances.PlugType;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by koval on 27.11.2016.
@@ -16,6 +15,7 @@ public class ValidationFactory {
 
     private static final String APPLIANCE_NULL = "An appliance can not be a null";
     private static final String PLUG_TYPE_NULL = "A plug can not be a null";
+    private static final String MARK_INCORRECT = "A mark can not be a null or empty";
     private static final String AMPERAGE_INCORRECT = "An amperage can not be less then 0";
     private static final String AMPERAGE_COOKER_INCORRECT = "A cooker can not have bigger amperage then 25";
     private static final String AMPERAGE_FRIDGE_INCORRECT = "A fridge can not have bigger amperage then 10";
@@ -35,6 +35,12 @@ public class ValidationFactory {
     public void validate(final PlugType plugType) {
         if (plugType == null) {
             throw new IllegalArgumentException(PLUG_TYPE_NULL);
+        }
+    }
+
+    public void validate(final String mark) {
+        if (StringUtils.isEmpty(mark)) {
+            throw new IllegalArgumentException(MARK_INCORRECT);
         }
     }
 

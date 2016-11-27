@@ -1,6 +1,5 @@
 package laba1.appliances;
 
-import laba1.Appliance;
 import laba1.sokets.Soket;
 
 /**
@@ -9,19 +8,18 @@ import laba1.sokets.Soket;
 public class Fridge extends AbstractAppliance {
 
     private final double amperage;
+    private final String mark;
     private PlugType plugType;
 
-    public Fridge(double amperage, PlugType plugType) {
+    Fridge(double amperage, String mark, PlugType plugType) {
         this.amperage = amperage;
+        this.mark = mark;
         this.plugType = plugType;
     }
 
     @Override
-    public void turnOn (final Soket soket) {
-        if (plugType != soket.getPlugType()) {
-            plugType = soket.getPlugType();
-            isTurnedOn = true;
-        }
+    public void turnOn(final Soket soket) {
+        adaptPlugAndTurnOn(plugType, soket);
     }
 
     @Override
@@ -40,5 +38,9 @@ public class Fridge extends AbstractAppliance {
 
     public PlugType getPlugType() {
         return plugType;
+    }
+
+    public String getMark() {
+        return mark;
     }
 }

@@ -1,6 +1,5 @@
 package laba1.appliances;
 
-import laba1.Appliance;
 import laba1.sokets.Soket;
 
 /**
@@ -9,19 +8,18 @@ import laba1.sokets.Soket;
 public class Drill extends AbstractAppliance {
 
     private final double amperage;
+    private final String mark;
     private PlugType plugType;
 
-    public Drill(double amperage, PlugType plugType) {
+    Drill(double amperage, String mark, PlugType plugType) {
         this.amperage = amperage;
+        this.mark = mark;
         this.plugType = plugType;
     }
 
     @Override
-    public void turnOn (final Soket soket) {
-        if (plugType != soket.getPlugType()) {
-            plugType = soket.getPlugType();
-            isTurnedOn = true;
-        }
+    public void turnOn(final Soket soket) {
+        adaptPlugAndTurnOn(plugType, soket);
     }
 
     @Override
@@ -44,5 +42,9 @@ public class Drill extends AbstractAppliance {
 
     public void setPlugType(PlugType plugType) {
         this.plugType = plugType;
+    }
+
+    public String getMark() {
+        return mark;
     }
 }

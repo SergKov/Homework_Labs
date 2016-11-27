@@ -1,4 +1,4 @@
-package laba1.comparators;
+package laba1.appliances.comparators;
 
 import laba1.appliances.AbstractAppliance;
 

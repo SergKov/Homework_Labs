@@ -1,6 +1,7 @@
 package laba1;
 
 import laba1.appliances.AbstractAppliance;
+import laba1.appliances.Appliance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,14 @@ public class Room {
         return appliances.stream()
                 .filter(appliance -> appliance.getPower() == power)
                 .collect(Collectors.toList());
+    }
+
+    public AbstractAppliance findByMark(final Appliance name, final String mark) {
+        return appliances.stream()
+                .filter(appliance -> appliance.getName() == name)
+                .filter(appliance -> appliance.getMark().equals(mark))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException(NO_APPLIANCE));
     }
 
     public List<AbstractAppliance> getAppliances() {
