@@ -12,7 +12,7 @@ import static org.mockito.Mockito.verify;
  * Created by koval on 20.11.2016.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class TestObserver {
+public class ObserverTest {
 
     @Spy
     private PostOffice postOffice = PostOffice.getInstance();

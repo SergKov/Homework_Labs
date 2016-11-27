@@ -41,4 +41,8 @@ public class Elf {
     public boolean isFlying() {
         return isFlying;
     }
+
+    public void setFlying(boolean flying) {
+        isFlying = flying;
+    }
 }

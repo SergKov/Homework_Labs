@@ -1,6 +1,5 @@
 package homework4.task24.base;
 
-import homework4.task24.ValidationFactory;
 import homework4.task24.CreditCart;
 import org.apache.log4j.Logger;
 import org.joda.money.Money;
