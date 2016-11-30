@@ -1,5 +1,6 @@
 package laba1.appliances;
 
+import laba1.Room;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -24,6 +25,9 @@ public class ValidationFactory {
     private static final String AMPERAGE_IRON_INCORRECT = "An iron can not have bigger amperage then 5";
     private static final String AMPERAGE_KETTLE_INCORRECT = "A kettle can not have bigger amperage then 5";
     private static final String AMPERAGE_DRILL_INCORRECT = "A drill can not have bigger amperage then 5";
+    private static final String THIS_APPLIANCE_TURNED_ON = "This appliance is turned on yet";
+    private static final String THIS_APPLIANCE_TURNED_OFF = "This appliance is not turned on";
+    private static final String THIS_ROOM_HAS_NO_FREE_SOKETS = "This room does not have free sokets";
 
 
     public void validate(final Appliance appliance) {
@@ -89,6 +93,24 @@ public class ValidationFactory {
     public void validateDrill(final double amperage) {
         if (amperage > 5) {
             throw new IllegalArgumentException(AMPERAGE_DRILL_INCORRECT);
+        }
+    }
+
+    public void validateTurnedOn(final boolean isTurnedOn) {
+        if (!isTurnedOn) {
+            throw new IllegalArgumentException(THIS_APPLIANCE_TURNED_ON);
+        }
+    }
+
+    public void validateTurnedOff(final boolean isTurnedOn) {
+        if (isTurnedOn) {
+            throw new IllegalArgumentException(THIS_APPLIANCE_TURNED_OFF);
+        }
+    }
+
+    public void validateCountTurnedOnInTheRoom(final int count, final Room room) {
+        if (count >= room.countSockets()) {
+            throw new IllegalArgumentException(THIS_ROOM_HAS_NO_FREE_SOKETS);
         }
     }
 

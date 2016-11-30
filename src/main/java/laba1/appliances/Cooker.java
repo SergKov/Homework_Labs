@@ -1,5 +1,6 @@
 package laba1.appliances;
 
+import laba1.Room;
 import laba1.sokets.Soket;
 
 /**
@@ -18,8 +19,8 @@ public class Cooker extends AbstractAppliance {
     }
 
     @Override
-    public void turnOn(final Soket soket) {
-        adaptPlugAndTurnOn(plugType, soket);
+    public void turnOn(final Soket soket, final Room room) {
+        adaptPlugAndTurnOn(plugType, soket, room);
     }
 
     @Override
@@ -32,6 +33,15 @@ public class Cooker extends AbstractAppliance {
         return Appliance.COOKER;
     }
 
+    @Override
+    public String toString() {
+        return "Cooker{" +
+                "amperage=" + amperage +
+                ", mark='" + mark + '\'' +
+                ", plugType=" + plugType +
+                '}';
+    }
+
     public double getAmperage() {
         return amperage;
     }
@@ -40,6 +50,7 @@ public class Cooker extends AbstractAppliance {
         return plugType;
     }
 
+    @Override
     public void setPlugType(PlugType plugType) {
         this.plugType = plugType;
     }

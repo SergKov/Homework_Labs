@@ -1,5 +1,6 @@
 package laba1.appliances;
 
+import laba1.Room;
 import laba1.sokets.Soket;
 
 /**
@@ -10,12 +11,17 @@ public abstract class AbstractAppliance {
     protected boolean isTurnedOn;
     protected Soket soket;
 
-    public abstract void turnOn(Soket soket);
+    private static int countTurnedOn;
 
-    protected void adaptPlugAndTurnOn(PlugType plugType, final Soket soket) {
+    public abstract void turnOn(Soket soket, final Room room);
+
+    protected void adaptPlugAndTurnOn(PlugType plugType, final Soket soket, final Room room) {
+
+        checkAndIncrementTurnedOn(room);
+
         if (!isTurnedOn) {
             if (plugType != soket.getPlugType()) {
-                plugType = soket.getPlugType();
+                this.setPlugType(plugType);
                 isTurnedOn = true;
             } else {
                 isTurnedOn = true;
@@ -23,7 +29,15 @@ public abstract class AbstractAppliance {
         }
     }
 
+    private void checkAndIncrementTurnedOn(final Room room) {
+        ValidationFactory.getInstance().validateTurnedOn(isTurnedOn);
+        ValidationFactory.getInstance().validateCountTurnedOnInTheRoom(countTurnedOn, room);
+        countTurnedOn++;
+    }
+
     public void turnOff() {
+        ValidationFactory.getInstance().validateTurnedOff(isTurnedOn);
+        countTurnedOn--;
         isTurnedOn = false;
     }
 
@@ -36,4 +50,6 @@ public abstract class AbstractAppliance {
     public abstract Appliance getName();
 
     public abstract String getMark();
+
+    public abstract void setPlugType(PlugType type);
 }

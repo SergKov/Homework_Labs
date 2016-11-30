@@ -2,6 +2,7 @@ package laba1;
 
 import laba1.appliances.AbstractAppliance;
 import laba1.appliances.Appliance;
+import laba1.sokets.Soket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +15,19 @@ public class Room {
 
     private static final String NO_APPLIANCE = "No such appliance in a flat";
 
+    private final String name;
     private List<AbstractAppliance> appliances;
+    private List<Soket> sokets;
 
-    public Room() {
+    public Room(String name) {
+        this.name = name;
         this.appliances = new ArrayList<>();
+        this.sokets = new ArrayList<>();
+    }
+
+    public Room(String name, List<Soket> sokets) {
+        this(name);
+        this.sokets = sokets;
     }
 
     public void addAppliance(final AbstractAppliance appliance) {
@@ -32,6 +42,10 @@ public class Room {
         if (!isRemoved) {
             throw new IllegalArgumentException(NO_APPLIANCE);
         }
+    }
+
+    public void addSoket(final Soket soket) {
+        sokets.add(soket);
     }
 
     public List<AbstractAppliance> findAllByName(final Appliance byAppliance) {
@@ -54,11 +68,19 @@ public class Room {
                 .orElseThrow(() -> new IllegalArgumentException(NO_APPLIANCE));
     }
 
+    public int countSockets() {
+        return sokets.size();
+    }
+
     public List<AbstractAppliance> getAppliances() {
         return appliances;
     }
 
     public void setAppliances(List<AbstractAppliance> appliances) {
         this.appliances = appliances;
+    }
+
+    public List<Soket> getSokets() {
+        return sokets;
     }
 }
