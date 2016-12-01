@@ -1,7 +1,10 @@
 package laba1.appliances;
 
 import laba1.Room;
+import laba1.sokets.Soket;
 import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
 
 /**
  * Created by koval on 27.11.2016.
@@ -14,6 +17,7 @@ public class ValidationFactory {
         return instance;
     }
 
+    public static final String NO_APPLIANCE = "No such appliance in a flat";
     private static final String APPLIANCE_NULL = "An appliance can not be a null";
     private static final String PLUG_TYPE_NULL = "A plug can not be a null";
     private static final String MARK_INCORRECT = "A mark can not be a null or empty";
@@ -25,9 +29,13 @@ public class ValidationFactory {
     private static final String AMPERAGE_IRON_INCORRECT = "An iron can not have bigger amperage then 5";
     private static final String AMPERAGE_KETTLE_INCORRECT = "A kettle can not have bigger amperage then 5";
     private static final String AMPERAGE_DRILL_INCORRECT = "A drill can not have bigger amperage then 5";
-    private static final String THIS_APPLIANCE_TURNED_ON = "This appliance is turned on yet";
-    private static final String THIS_APPLIANCE_TURNED_OFF = "This appliance is not turned on";
-    private static final String THIS_ROOM_HAS_NO_FREE_SOKETS = "This room does not have free sokets";
+    private static final String APPLIANCE_TURNED_ON = "This appliance is turned on yet";
+    private static final String APPLIANCE_TURNED_OFF = "This appliance is turned off";
+    private static final String APPLIANCE_NUMBER_INCORRECT = "This appliance number is incorrect";
+    private static final String ROOM_HAS_NO_FREE_SOKETS = "This room does not have free sokets";
+    private static final String SOKET_IS_HAVING_A_PLUG = "This soket is having a plug";
+    private static final String SOKET_IS_NOT_HAVING_A_PLUG = "This soket is not having a plug";
+    private static final String SOKET_NUMBER_INCORRECT = "This soket's number is incorrect";
 
 
     public void validate(final Appliance appliance) {
@@ -96,23 +104,46 @@ public class ValidationFactory {
         }
     }
 
-    public void validateTurnedOn(final boolean isTurnedOn) {
-        if (!isTurnedOn) {
-            throw new IllegalArgumentException(THIS_APPLIANCE_TURNED_ON);
+    public void validateTurnedOn(final AbstractAppliance appliance) {
+        if (!appliance.isTurnedOn) {
+            throw new IllegalArgumentException(APPLIANCE_TURNED_OFF);
         }
     }
 
-    public void validateTurnedOff(final boolean isTurnedOn) {
-        if (isTurnedOn) {
-            throw new IllegalArgumentException(THIS_APPLIANCE_TURNED_OFF);
+    public void validateTurnedOff(final AbstractAppliance appliance) {
+        if (appliance.isTurnedOn) {
+            throw new IllegalArgumentException(APPLIANCE_TURNED_ON);
         }
     }
 
-    public void validateCountTurnedOnInTheRoom(final int count, final Room room) {
-        if (count >= room.countSockets()) {
-            throw new IllegalArgumentException(THIS_ROOM_HAS_NO_FREE_SOKETS);
+    public void validateSoketInsertedPlug(final Soket soket) {
+        if (soket.getIsHavingPlug()) {
+            throw new IllegalArgumentException(SOKET_IS_HAVING_A_PLUG);
         }
     }
 
+    public void validateSoketNotInsertedPlug(final Soket soket) {
+        if (!soket.getIsHavingPlug()) {
+            throw new IllegalArgumentException(SOKET_IS_NOT_HAVING_A_PLUG);
+        }
+    }
+
+    public void validateSoketNumber(final int number, final List<Soket> sokets) {
+        if (number >= sokets.size()) {
+            throw new IllegalArgumentException(SOKET_NUMBER_INCORRECT);
+        }
+    }
+
+    public void validateApplianceNumber(final int number, final List<AbstractAppliance> appliances) {
+        if (number >= appliances.size()) {
+            throw new IllegalArgumentException(APPLIANCE_NUMBER_INCORRECT);
+        }
+    }
+
+    public void validate(final boolean isRemoved) {
+        if (!isRemoved) {
+            throw new IllegalArgumentException(NO_APPLIANCE);
+        }
+    }
 
 }

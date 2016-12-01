@@ -2,18 +2,19 @@ package laba1;
 
 import laba1.appliances.AbstractAppliance;
 import laba1.appliances.Appliance;
+import laba1.appliances.ValidationFactory;
 import laba1.sokets.Soket;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static laba1.appliances.ValidationFactory.NO_APPLIANCE;
+
 /**
  * Created by Sergey on 27.11.2016.
  */
 public class Room {
-
-    private static final String NO_APPLIANCE = "No such appliance in a flat";
 
     private final String name;
     private List<AbstractAppliance> appliances;
@@ -39,13 +40,33 @@ public class Room {
         final boolean isRemoved = appliances.removeIf(appliance ->
                 appliance.getName() == byAppliance);
 
-        if (!isRemoved) {
-            throw new IllegalArgumentException(NO_APPLIANCE);
-        }
+        ValidationFactory.getInstance().validate(isRemoved);
     }
 
     public void addSoket(final Soket soket) {
         sokets.add(soket);
+    }
+
+    public void turnOn(final int applianceNumber, final int soketNumber) {
+        ValidationFactory.getInstance().validateApplianceNumber(applianceNumber, appliances);
+        final AbstractAppliance appliance = appliances.get(applianceNumber);
+        ValidationFactory.getInstance().validateTurnedOn(appliance);
+        ValidationFactory.getInstance().validateSoketNumber(soketNumber, sokets);
+        final Soket soket = sokets.get(soketNumber);
+        ValidationFactory.getInstance().validateSoketInsertedPlug(soket);
+        appliance.turnOn(soket);
+        soket.setIsHavingPlug(true);
+    }
+
+    public void turnOff(final int applianceNumber, final int soketNumber) {
+        ValidationFactory.getInstance().validateApplianceNumber(applianceNumber, appliances);
+        final AbstractAppliance appliance = appliances.get(applianceNumber);
+        ValidationFactory.getInstance().validateTurnedOff(appliance);
+        ValidationFactory.getInstance().validateSoketNumber(soketNumber, sokets);
+        final Soket soket = sokets.get(soketNumber);
+        ValidationFactory.getInstance().validateSoketNotInsertedPlug(soket);
+        appliance.turnOff();
+        soket.setIsHavingPlug(false);
     }
 
     public List<AbstractAppliance> findAllByName(final Appliance byAppliance) {
@@ -66,10 +87,6 @@ public class Room {
                 .filter(appliance -> appliance.getMark().equals(mark))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NO_APPLIANCE));
-    }
-
-    public int countSockets() {
-        return sokets.size();
     }
 
     public List<AbstractAppliance> getAppliances() {

@@ -19,8 +19,8 @@ public class TV extends AbstractAppliance {
     }
 
     @Override
-    public void turnOn(final Soket soket, final Room room) {
-        adaptPlugAndTurnOn(plugType, soket, room);
+    public void turnOn(final Soket soket) {
+        adaptPlugAndTurnOn(plugType, soket);
     }
 
     @Override

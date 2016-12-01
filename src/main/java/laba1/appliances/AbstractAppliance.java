@@ -11,13 +11,9 @@ public abstract class AbstractAppliance {
     protected boolean isTurnedOn;
     protected Soket soket;
 
-    private static int countTurnedOn;
+    public abstract void turnOn(Soket soket);
 
-    public abstract void turnOn(Soket soket, final Room room);
-
-    protected void adaptPlugAndTurnOn(PlugType plugType, final Soket soket, final Room room) {
-
-        checkAndIncrementTurnedOn(room);
+    protected void adaptPlugAndTurnOn(PlugType plugType, final Soket soket) {
 
         if (!isTurnedOn) {
             if (plugType != soket.getPlugType()) {
@@ -29,16 +25,10 @@ public abstract class AbstractAppliance {
         }
     }
 
-    private void checkAndIncrementTurnedOn(final Room room) {
-        ValidationFactory.getInstance().validateTurnedOn(isTurnedOn);
-        ValidationFactory.getInstance().validateCountTurnedOnInTheRoom(countTurnedOn, room);
-        countTurnedOn++;
-    }
-
     public void turnOff() {
-        ValidationFactory.getInstance().validateTurnedOff(isTurnedOn);
-        countTurnedOn--;
-        isTurnedOn = false;
+        if (isTurnedOn) {
+            isTurnedOn = false;
+        }
     }
 
     public boolean isTurnedOn() {

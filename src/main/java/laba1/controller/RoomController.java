@@ -8,8 +8,8 @@ import laba1.view.View;
  */
 public class RoomController {
 
-    private Room room;
-    private View view;
+    private final Room room;
+    private final View view;
 
     public RoomController(Room room, View view) {
         this.room = room;

@@ -5,7 +5,7 @@ import laba1.appliances.PlugType;
 /**
  * Created by koval on 27.11.2016.
  */
-public class EuropeanSoket implements Soket {
+public class EuropeanSoket extends Soket {
 
     private static final int EUROPIAN_VOLTAGE = 220;
 

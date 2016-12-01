@@ -5,9 +5,19 @@ import laba1.appliances.PlugType;
 /**
  * Created by koval on 27.11.2016.
  */
-public interface Soket {
+public abstract class Soket {
 
-    int getVoltage();
+    protected boolean hasPlug;
 
-    PlugType getPlugType();
+    public abstract int getVoltage();
+
+    public abstract PlugType getPlugType();
+
+    public boolean getIsHavingPlug() {
+        return hasPlug;
+    }
+
+    public void setIsHavingPlug(boolean hasPlug) {
+        this.hasPlug = hasPlug;
+    }
 }
