@@ -1,6 +1,7 @@
 package laba1.appliances.comparators;
 
 import laba1.appliances.AbstractAppliance;
+import laba1.sokets.Soket;
 
 import java.util.Comparator;
 
@@ -9,7 +10,7 @@ import java.util.Comparator;
  */
 public class PowerComparator implements Comparator<AbstractAppliance> {
 
-    private static final double DELTA = .05;
+    public static final double DELTA = .05;
 
     @Override
     public int compare(AbstractAppliance o1, AbstractAppliance o2) {

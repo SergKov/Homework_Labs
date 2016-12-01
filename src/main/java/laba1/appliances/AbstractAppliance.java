@@ -15,20 +15,20 @@ public abstract class AbstractAppliance {
 
     protected void adaptPlugAndTurnOn(PlugType plugType, final Soket soket) {
 
-        if (!isTurnedOn) {
-            if (plugType != soket.getPlugType()) {
-                this.setPlugType(plugType);
-                isTurnedOn = true;
-            } else {
-                isTurnedOn = true;
-            }
+        ValidationFactory.getInstance().validateTurnedOff(this);
+
+        if (plugType != soket.getPlugType()) {
+            this.setPlugType(soket.getPlugType());
+            soket.setIsHavingPlug(true);
+            isTurnedOn = true;
+        } else {
+            isTurnedOn = true;
         }
     }
 
     public void turnOff() {
-        if (isTurnedOn) {
-            isTurnedOn = false;
-        }
+        ValidationFactory.getInstance().validateTurnedOn(this);
+        isTurnedOn = false;
     }
 
     public boolean isTurnedOn() {
@@ -40,6 +40,8 @@ public abstract class AbstractAppliance {
     public abstract Appliance getName();
 
     public abstract String getMark();
+
+    public abstract PlugType getPlugType();
 
     public abstract void setPlugType(PlugType type);
 }

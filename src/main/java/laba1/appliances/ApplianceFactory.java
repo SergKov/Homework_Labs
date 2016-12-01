@@ -7,7 +7,7 @@ public class ApplianceFactory {
 
     private static final ApplianceFactory instance = new ApplianceFactory();
 
-    public ApplianceFactory getInstance() {
+    public static ApplianceFactory getInstance() {
         return instance;
     }
 

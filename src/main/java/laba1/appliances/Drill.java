@@ -20,12 +20,13 @@ public class Drill extends AbstractAppliance {
 
     @Override
     public void turnOn(final Soket soket) {
+        super.soket = soket;
         adaptPlugAndTurnOn(plugType, soket);
     }
 
     @Override
     public double getPower() {
-        return amperage * soket.getVoltage();
+        return isTurnedOn ? amperage * soket.getVoltage() : 0;
     }
 
     @Override

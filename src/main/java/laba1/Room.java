@@ -48,23 +48,29 @@ public class Room {
     }
 
     public void turnOn(final int applianceNumber, final int soketNumber) {
+
         ValidationFactory.getInstance().validateApplianceNumber(applianceNumber, appliances);
         final AbstractAppliance appliance = appliances.get(applianceNumber);
-        ValidationFactory.getInstance().validateTurnedOn(appliance);
+
+        ValidationFactory.getInstance().validateTurnedOff(appliance);
         ValidationFactory.getInstance().validateSoketNumber(soketNumber, sokets);
         final Soket soket = sokets.get(soketNumber);
-        ValidationFactory.getInstance().validateSoketInsertedPlug(soket);
+
+        ValidationFactory.getInstance().validateSoketNotInsertedPlug(soket);
         appliance.turnOn(soket);
         soket.setIsHavingPlug(true);
     }
 
     public void turnOff(final int applianceNumber, final int soketNumber) {
+
         ValidationFactory.getInstance().validateApplianceNumber(applianceNumber, appliances);
         final AbstractAppliance appliance = appliances.get(applianceNumber);
-        ValidationFactory.getInstance().validateTurnedOff(appliance);
+
+        ValidationFactory.getInstance().validateTurnedOn(appliance);
         ValidationFactory.getInstance().validateSoketNumber(soketNumber, sokets);
         final Soket soket = sokets.get(soketNumber);
-        ValidationFactory.getInstance().validateSoketNotInsertedPlug(soket);
+
+        ValidationFactory.getInstance().validateSoketInsertedPlug(soket);
         appliance.turnOff();
         soket.setIsHavingPlug(false);
     }
@@ -87,6 +93,18 @@ public class Room {
                 .filter(appliance -> appliance.getMark().equals(mark))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException(NO_APPLIANCE));
+    }
+
+    public List<AbstractAppliance> findAllTurnedOn() {
+        return appliances.stream()
+                .filter(AbstractAppliance::isTurnedOn)
+                .collect(Collectors.toList());
+    }
+
+    public List<AbstractAppliance> findAllTurnedOff() {
+        return appliances.stream()
+                .filter(appliance -> !appliance.isTurnedOn())
+                .collect(Collectors.toList());
     }
 
     public List<AbstractAppliance> getAppliances() {

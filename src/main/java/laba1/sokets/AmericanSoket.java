@@ -7,7 +7,7 @@ import laba1.appliances.PlugType;
  */
 public class AmericanSoket extends Soket {
 
-    private static final int AMERICAN_VOLTAGE = 120;
+    public static final int AMERICAN_VOLTAGE = 120;
 
     @Override
     public int getVoltage() {

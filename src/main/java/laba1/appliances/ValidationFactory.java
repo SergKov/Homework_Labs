@@ -32,11 +32,9 @@ public class ValidationFactory {
     private static final String APPLIANCE_TURNED_ON = "This appliance is turned on yet";
     private static final String APPLIANCE_TURNED_OFF = "This appliance is turned off";
     private static final String APPLIANCE_NUMBER_INCORRECT = "This appliance number is incorrect";
-    private static final String ROOM_HAS_NO_FREE_SOKETS = "This room does not have free sokets";
     private static final String SOKET_IS_HAVING_A_PLUG = "This soket is having a plug";
     private static final String SOKET_IS_NOT_HAVING_A_PLUG = "This soket is not having a plug";
     private static final String SOKET_NUMBER_INCORRECT = "This soket's number is incorrect";
-
 
     public void validate(final Appliance appliance) {
         if (appliance == null) {
@@ -106,25 +104,25 @@ public class ValidationFactory {
 
     public void validateTurnedOn(final AbstractAppliance appliance) {
         if (!appliance.isTurnedOn) {
-            throw new IllegalArgumentException(APPLIANCE_TURNED_OFF);
+            throw new IllegalStateException(APPLIANCE_TURNED_OFF);
         }
     }
 
     public void validateTurnedOff(final AbstractAppliance appliance) {
         if (appliance.isTurnedOn) {
-            throw new IllegalArgumentException(APPLIANCE_TURNED_ON);
-        }
-    }
-
-    public void validateSoketInsertedPlug(final Soket soket) {
-        if (soket.getIsHavingPlug()) {
-            throw new IllegalArgumentException(SOKET_IS_HAVING_A_PLUG);
+            throw new IllegalStateException(APPLIANCE_TURNED_ON);
         }
     }
 
     public void validateSoketNotInsertedPlug(final Soket soket) {
+        if (soket.getIsHavingPlug()) {
+            throw new IllegalStateException(SOKET_IS_HAVING_A_PLUG);
+        }
+    }
+
+    public void validateSoketInsertedPlug(final Soket soket) {
         if (!soket.getIsHavingPlug()) {
-            throw new IllegalArgumentException(SOKET_IS_NOT_HAVING_A_PLUG);
+            throw new IllegalStateException(SOKET_IS_NOT_HAVING_A_PLUG);
         }
     }
 
