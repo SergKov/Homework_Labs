@@ -46,5 +46,15 @@ public class BacteriaTest {
         assertThat(bacteriaColony.getBacterias(), hasSize(expectedSizeAfterCross));
     }
 
+    @Test
+    public void requireResultWithRandom() {
+        bacteriaColony.cross();
+        bacteriaColony.cross();
+        bacteriaColony.cross();
+
+        final Bacteria bacteria = bacteriaColony.getRandomBactery();
+        assertNotNull(bacteria);
+    }
+
 
 }

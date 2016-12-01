@@ -17,7 +17,7 @@ import java.util.List;
 
 import static laba1.appliances.Appliance.COMPUTER;
 import static laba1.appliances.Appliance.IRON;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -153,6 +153,44 @@ public class RoomTest {
         room.turnOff(0, 1);
 
         assertFalse(secondAppliance.isTurnedOn());
+    }
+
+    @Test
+    public void requireResultWithFindAllByName() {
+
+        final AbstractAppliance firstAppliance = ApplianceFactory.getInstance().createAppliance(Appliance.COOKER,
+                "Philips", 20, PlugType.AMERICAN);
+
+        final AbstractAppliance secondAppliance = ApplianceFactory.getInstance().createAppliance(Appliance.COOKER,
+                "Philips", 17, PlugType.AMERICAN);
+
+        room.addAppliance(firstAppliance);
+        room.addAppliance(secondAppliance);
+
+        assertThat(room.findAllByName(Appliance.COOKER), hasItem(firstAppliance));
+    }
+
+    @Test
+    public void requireResultWithFindAllTurnedOn() {
+
+        final Soket firstSoket = new AmericanSoket();
+        room.addSoket(firstSoket);
+
+        final Soket secondSoket = new EuropeanSoket();
+        room.addSoket(secondSoket);
+
+        final AbstractAppliance firstAppliance = ApplianceFactory.getInstance().createAppliance(Appliance.COOKER,
+                "Philips", 20, PlugType.AMERICAN);
+        room.addAppliance(firstAppliance);
+
+        final AbstractAppliance secondAppliance = ApplianceFactory.getInstance().createAppliance(Appliance.COOKER,
+                "Philips", 17, PlugType.AMERICAN);
+        room.addAppliance(secondAppliance);
+
+        room.turnOn(0, 1);
+        room.turnOn(1, 0);
+
+        assertThat(room.findAllTurnedOn(), hasItems(firstAppliance, secondAppliance));
     }
 
 }

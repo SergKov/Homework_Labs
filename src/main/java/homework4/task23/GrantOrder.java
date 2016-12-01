@@ -2,8 +2,17 @@ package homework4.task23;
 
 /**
  * Created by Sergey on 19.11.2016.
+ *
+ * State
  */
 public interface GrantOrder {
+
+    String CREATED = "CREATED";
+    String PROCESSED = "PROCESSED";
+    String POSTPONED = "POSTPONED";
+    String DECLINED = "DECLINED";
+    String CONFIRMED = "CONFIRMED";
+    String WITHDRAWN = "WITHDRAWN";
 
     enum State {
         CREATED, PROCESSED, POSTPONED, DECLINED, CONFIRMED, WITHDRAWN;
@@ -21,17 +30,5 @@ public interface GrantOrder {
 
     void withdraw();
 
-    void getState();
+    State getState();
 }
-
-/*abstract class C {
-    public class D {
-
-    }
-}
-
-class E extends C {
-    public static void main(String[] args) {
-        new E().new D();
-    }
-}*/

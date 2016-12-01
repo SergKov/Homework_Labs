@@ -1,7 +1,5 @@
 package homework4.task26;
 
-import homework2.task2.Array;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,5 +21,13 @@ public class BacteriaColony {
 
     public List<Bacteria> getBacterias() {
         return bacterias;
+    }
+
+    public int size() {
+        return bacterias.size();
+    }
+
+    public Bacteria getRandomBactery() {
+        return bacterias.get((int)(Math.random() * size()));
     }
 }
