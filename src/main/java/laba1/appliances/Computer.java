@@ -47,6 +47,7 @@ public class Computer extends AbstractAppliance {
         return amperage;
     }
 
+    @Override
     public PlugType getPlugType() {
         return plugType;
     }
@@ -56,6 +57,7 @@ public class Computer extends AbstractAppliance {
         this.plugType = plugType;
     }
 
+    @Override
     public String getMark() {
         return mark;
     }

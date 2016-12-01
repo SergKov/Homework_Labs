@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static laba1.appliances.ValidationFactory.NO_APPLIANCE;
+import static laba1.appliances.comparators.PowerComparator.DELTA;
 
 /**
  * Created by Sergey on 27.11.2016.
@@ -83,7 +84,7 @@ public class Room {
 
     public List<AbstractAppliance> findAllByPower(final double power) {
         return appliances.stream()
-                .filter(appliance -> appliance.getPower() == power)
+                .filter(appliance -> appliance.getPower() - power < DELTA)
                 .collect(Collectors.toList());
     }
 
