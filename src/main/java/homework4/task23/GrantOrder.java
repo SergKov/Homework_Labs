@@ -5,30 +5,21 @@ package homework4.task23;
  *
  * State
  */
-public interface GrantOrder {
+public abstract class GrantOrder {
 
-    String CREATED = "CREATED";
-    String PROCESSED = "PROCESSED";
-    String POSTPONED = "POSTPONED";
-    String DECLINED = "DECLINED";
-    String CONFIRMED = "CONFIRMED";
-    String WITHDRAWN = "WITHDRAWN";
+    public static final String CHANGED_TO = "%s changed to %s";
+
+    protected Order order;
+
+    public GrantOrder(Order order) {
+        this.order = order;
+    }
 
     enum State {
         CREATED, PROCESSED, POSTPONED, DECLINED, CONFIRMED, WITHDRAWN;
     }
 
-    void create();
+    public abstract void changeState(GrantOrder to);
 
-    void process();
-
-    void postpone();
-
-    void decline();
-
-    void confirm();
-
-    void withdraw();
-
-    State getState();
+    public abstract State getState();
 }

@@ -3,48 +3,23 @@ package homework4.task23;
 /**
  * Created by Sergey on 19.11.2016.
  */
-public class Order implements GrantOrder {
+public class Order {
 
-    private GrantOrder state;
+    private GrantOrder currentState;
 
-    @Override
-    public void create() {
-        state = new CreatedGrantOrder();
-        state.create();
+    public Order() {
+        currentState = new CreatedGrantOrder(this);
     }
 
-    @Override
-    public void process() {
-        state = new ProcessedGrantOrder();
-        state.process();
+    public GrantOrder getCurrentState() {
+        return currentState;
     }
 
-    @Override
-    public void postpone() {
-        state = new PostponedGrantOrder();
-        state.postpone();
+    public void setCurrentState(GrantOrder currentState) {
+        this.currentState = currentState;
     }
 
-    @Override
-    public void decline() {
-        state = new DeclinedGrantOrder();
-        state.decline();
-    }
-
-    @Override
-    public void confirm() {
-        state = new ConfirmedGrantOrder();
-        state.confirm();
-    }
-
-    @Override
-    public void withdraw() {
-        state = new WithdrawnGrantOrder();
-        state.withdraw();
-    }
-
-    @Override
-    public State getState() {
-        return state.getState();
+    public void changeState(GrantOrder grantOrder) {
+        currentState.changeState(grantOrder);
     }
 }

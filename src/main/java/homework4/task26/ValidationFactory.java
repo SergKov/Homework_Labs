@@ -12,17 +12,10 @@ public class ValidationFactory {
     }
 
     private static final String NULL_VALUE = "Colony can not be null";
-    private static final String ILLEGAL_BACTERIAS_NUMBERS = "Colony can not have less than 2 bacterias";
 
-    public void validateNull(final Bacteria... bacterias) {
-        if (bacterias == null) {
-            throw new IllegalStateException(NULL_VALUE);
-        }
-    }
-
-    public void validate(final Bacteria... bacterias) {
-        if (bacterias.length < 2) {
-            throw new IllegalArgumentException(ILLEGAL_BACTERIAS_NUMBERS);
+    public void validate(final Bacteria bacteria) {
+        if (bacteria == null) {
+            throw new IllegalArgumentException(NULL_VALUE);
         }
     }
 }

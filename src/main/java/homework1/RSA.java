@@ -29,14 +29,14 @@ public class RSA {
     }
 
     public static String bytesToString(final byte[] encrypted) {
-        String test = "";
+
+        final StringBuilder sb = new StringBuilder();
 
         for (final byte b : encrypted) {
-            test += Byte.toString(b);
+            sb.append(Byte.toString(b));
         }
 
-        return test;
-
+        return sb.toString();
     }
 
     public byte[] encrypt(final byte[] message) {

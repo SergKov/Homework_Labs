@@ -5,42 +5,26 @@ import org.apache.log4j.Logger;
 /**
  * Created by koval on 19.11.2016.
  */
-public class DeclinedGrantOrder implements GrantOrder {
+public class DeclinedGrantOrder extends GrantOrder {
 
     private static final Logger LOG = Logger.getLogger(DeclinedGrantOrder.class);
 
-    @Override
-    public void create() {
-        LOG.debug(this.getClass().getSimpleName() + CREATED);
+    public DeclinedGrantOrder(Order order) {
+        super(order);
+        LOG.debug(order.getClass().getSimpleName() + State.DECLINED);
     }
 
     @Override
-    public void process() {
-        LOG.debug(this.getClass().getSimpleName() + PROCESSED);
-    }
-
-    @Override
-    public void postpone() {
-        LOG.debug(this.getClass().getSimpleName() + POSTPONED);
-    }
-
-    @Override
-    public void decline() {
-        LOG.debug(this.getClass().getSimpleName() + DECLINED);
-    }
-
-    @Override
-    public void confirm() {
-        LOG.debug(this.getClass().getSimpleName() + CONFIRMED);
-    }
-
-    @Override
-    public void withdraw() {
-        LOG.debug(this.getClass().getSimpleName() + WITHDRAWN);
+    public void changeState(GrantOrder to) {
+        ValidationFactory.getInstance().validate(to, State.values());
+        LOG.debug(String.format(CHANGED_TO, this.getState(), to.getState()));
+        order.setCurrentState(to);
     }
 
     @Override
     public State getState() {
         return State.DECLINED;
     }
+
+
 }

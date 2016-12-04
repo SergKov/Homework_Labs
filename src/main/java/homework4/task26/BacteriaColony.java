@@ -2,6 +2,7 @@ package homework4.task26;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -11,16 +12,13 @@ public class BacteriaColony {
 
     private final List<Bacteria> bacterias = new ArrayList<>();
 
-    BacteriaColony(Bacteria... bacteria) {
-        bacterias.addAll(Arrays.asList(bacteria));
+    BacteriaColony(Bacteria bacteria) {
+        bacterias.add(bacteria);
     }
 
     public void cross() {
-        bacterias.add(new Bacteria());
-    }
-
-    public List<Bacteria> getBacterias() {
-        return bacterias;
+        final Bacteria bacteria = bacterias.get(0);
+        bacterias.add(bacteria);
     }
 
     public int size() {

@@ -1,34 +1,22 @@
 package homework4.task26;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Spy;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 /**
  * Created by koval on 24.11.2016.
  */
 public class BacteriaTest {
 
-    private final Bacteria first = new Bacteria();
+    private final Bacteria bacteria = new Bacteria();
 
-    private final Bacteria second = new Bacteria();
-
-    private final BacteriaColony bacteriaColony = BacteriumColonyFactory.getInstance().createBacteriaColony(first, second);
-
-    @Test(expected = IllegalStateException.class)
-    public void requireResultWithNull() {
-        BacteriumColonyFactory.getInstance().createBacteriaColony(null);
-    }
+    private final BacteriaColony bacteriaColony = BacteriumColonyFactory.getInstance().createBacteriaColony(bacteria);
 
     @Test(expected = IllegalArgumentException.class)
-    public void requireResultWithEmptyColony() {
-        BacteriumColonyFactory.getInstance().createBacteriaColony(first);
+    public void requireResultWithNull() {
+        BacteriumColonyFactory.getInstance().createBacteriaColony(null);
     }
 
     @Test
@@ -39,15 +27,18 @@ public class BacteriaTest {
     @Test
     public void requireResultWithCross() {
 
-        final int sizeBeforeCross = bacteriaColony.getBacterias().size();
+        final int sizeBeforeCross = bacteriaColony.size();
         bacteriaColony.cross();
-        final int expectedSizeAfterCross = sizeBeforeCross + 1;
 
-        assertThat(bacteriaColony.getBacterias(), hasSize(expectedSizeAfterCross));
+        final int expectedSizeAfterCross = sizeBeforeCross + 1;
+        final int result = bacteriaColony.size();
+
+        assertEquals(expectedSizeAfterCross, result);
     }
 
     @Test
     public void requireResultWithRandom() {
+
         bacteriaColony.cross();
         bacteriaColony.cross();
         bacteriaColony.cross();
@@ -55,6 +46,5 @@ public class BacteriaTest {
         final Bacteria bacteria = bacteriaColony.getRandomBactery();
         assertNotNull(bacteria);
     }
-
 
 }

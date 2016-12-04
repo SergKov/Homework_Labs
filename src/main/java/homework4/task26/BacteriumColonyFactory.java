@@ -11,10 +11,9 @@ public class BacteriumColonyFactory {
         return instance;
     }
 
-    public BacteriaColony createBacteriaColony(final Bacteria... bacterias) {
-        ValidationFactory.getInstance().validateNull(bacterias);
-        ValidationFactory.getInstance().validate(bacterias);
-        return new BacteriaColony(bacterias);
+    public BacteriaColony createBacteriaColony(final Bacteria bacteria) {
+        ValidationFactory.getInstance().validate(bacteria);
+        return new BacteriaColony(bacteria);
     }
 
 
