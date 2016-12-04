@@ -1,5 +1,6 @@
 package homework4.task23;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -7,6 +8,8 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 /**
@@ -15,16 +18,21 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class TestOrder {
 
-    @Spy
-    private final Order order = new Order();
+    private Order order;
+
+    private Order spyOrder;
 
     @Mock
     private GrantOrder grantOrder;
 
+    @Before
+    public void setUp() {
+        order = new Order();
+        spyOrder = spy(order);
+    }
+
     @Test
     public void requireResultWithChangeState() {
-
-        final Order order = new Order();
 
         order.changeState(new WithdrawnGrantOrder(order));
 
@@ -36,9 +44,9 @@ public class TestOrder {
 
     @Test
     public void requireResultVerifyGrantOrderWithChangeState() {
-        order.setCurrentState(grantOrder);
-        order.changeState(grantOrder);
-        verify(order).setCurrentState(grantOrder);
+        spyOrder.setCurrentState(grantOrder);
+        spyOrder.changeState(grantOrder);
+        verify(spyOrder).setCurrentState(grantOrder);
     }
 
     @Test(expected = IllegalArgumentException.class)
