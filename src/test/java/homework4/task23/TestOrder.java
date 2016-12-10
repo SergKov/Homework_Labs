@@ -4,13 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by koval on 02.12.2016.
@@ -31,39 +27,53 @@ public class TestOrder {
         spyOrder = spy(order);
     }
 
-    @Test
-    public void requireResultWithChangeState() {
-
-        order.changeState(new WithdrawnGrantOrder(order));
-
-        final GrantOrder.State expected = GrantOrder.State.WITHDRAWN;
-        final GrantOrder.State result = order.getCurrentState().getState();
-
-        assertEquals(expected, result);
+    @Test(expected = UnsupportedOperationException.class)
+    public void requireResultWithCreate() {
+        spyOrder.create();
     }
 
     @Test
     public void requireResultVerifyGrantOrderWithChangeState() {
-        spyOrder.setCurrentState(grantOrder);
-        spyOrder.changeState(grantOrder);
-        verify(spyOrder).setCurrentState(grantOrder);
+        spyOrder.setState(grantOrder);
+        spyOrder.process();
+        verify(spyOrder).process();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void requireResultWithIllegalChangeState() {
-
-        final GrantOrder currentState = new DeclinedGrantOrder(order);
-        order.setCurrentState(currentState);
-
-        order.changeState(new CreatedGrantOrder(order));
+    @Test
+    public void requireResultWithChangeStates() {
+        order.process();
+        order.postpone();
+        order.confirm();
+        order.withdraw();
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void requireResultWithRepeatState() {
+    @Test
+    public void requireResultChangeStatesWithVerify() {
 
-        final GrantOrder currentState = new DeclinedGrantOrder(order);
-        order.setCurrentState(currentState);
+        spyOrder.setState(grantOrder);
 
-        order.changeState(currentState);
+        spyOrder.process();
+        spyOrder.postpone();
+        spyOrder.confirm();
+        spyOrder.withdraw();
+
+        verify(spyOrder, times(1)).process();
+        verify(spyOrder, times(1)).postpone();
+        verify(spyOrder, times(1)).confirm();
+        verify(spyOrder, times(1)).withdraw();
+
+        verify(spyOrder, never()).decline();
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void requireResultWithDeclineWithdrawState() {
+        order.decline();
+        order.withdraw();
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void requireResultWithConfirmPostponeState() {
+        order.confirm();
+        order.postpone();
     }
 }

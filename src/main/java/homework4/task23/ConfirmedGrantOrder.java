@@ -11,14 +11,48 @@ public class ConfirmedGrantOrder extends GrantOrder {
 
     public ConfirmedGrantOrder(Order order) {
         super(order);
-        LOG.debug(order.getClass().getSimpleName() + State.WITHDRAWN);
     }
 
     @Override
-    public void changeState(GrantOrder to) {
-        ValidationFactory.getInstance().validate(to, State.CREATED, State.PROCESSED, State.POSTPONED, State.CONFIRMED);
-        LOG.debug(String.format(CHANGED_TO, this.getState(), to.getState()));
-        order.setCurrentState(to);
+    public void create() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.CREATED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void process() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.PROCESSED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void postpone() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.POSTPONED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void decline() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.DECLINED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void confirm() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.CONFIRMED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void withdraw() {
+        final WithdrawnGrantOrder withdrawnGrantOrder = new WithdrawnGrantOrder(order);
+        order.setState(withdrawnGrantOrder);
+        LOG.debug(String.format(STATE_CHANGED, this.getClass().getSimpleName() , State.WITHDRAWN));
     }
 
     @Override

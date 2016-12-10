@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 public class CacheTest {
 
     @Spy
-    private Cache cache = new Cache();
+    private final Cache cache = new Cache();
 
     @Test
     public void requireResultWithPut() throws IOException {

@@ -11,14 +11,48 @@ public class DeclinedGrantOrder extends GrantOrder {
 
     public DeclinedGrantOrder(Order order) {
         super(order);
-        LOG.debug(order.getClass().getSimpleName() + State.DECLINED);
     }
 
     @Override
-    public void changeState(GrantOrder to) {
-        ValidationFactory.getInstance().validate(to, State.values());
-        LOG.debug(String.format(CHANGED_TO, this.getState(), to.getState()));
-        order.setCurrentState(to);
+    public void create() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.CREATED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void process() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.PROCESSED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void postpone() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.POSTPONED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void decline() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.DECLINED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void confirm() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.CONFIRMED);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
+    }
+
+    @Override
+    public void withdraw() {
+        final String ILLEGAL_STATE = String.format(CHANGED_TO, this.getState(), State.WITHDRAWN);
+        LOG.warn(ILLEGAL_STATE);
+        throw new UnsupportedOperationException(ILLEGAL_STATE);
     }
 
     @Override

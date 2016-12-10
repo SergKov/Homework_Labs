@@ -5,21 +5,41 @@ package homework4.task23;
  */
 public class Order {
 
-    private GrantOrder currentState;
+    private GrantOrder state;
 
     public Order() {
-        currentState = new CreatedGrantOrder(this);
+        this.state = new CreatedGrantOrder(this);
     }
 
-    public GrantOrder getCurrentState() {
-        return currentState;
+    public void create() {
+        state.create();
     }
 
-    public void setCurrentState(GrantOrder currentState) {
-        this.currentState = currentState;
+    public void process() {
+        state.process();
     }
 
-    public void changeState(GrantOrder grantOrder) {
-        currentState.changeState(grantOrder);
+    public void postpone() {
+        state.postpone();
+    }
+
+    public void decline() {
+        state.decline();
+    }
+
+    public void confirm() {
+        state.confirm();
+    }
+
+    public void withdraw() {
+        state.withdraw();
+    }
+
+    public GrantOrder.State getState() {
+        return state.getState();
+    }
+
+    public void setState(GrantOrder grantOrder) {
+        this.state = grantOrder;
     }
 }
