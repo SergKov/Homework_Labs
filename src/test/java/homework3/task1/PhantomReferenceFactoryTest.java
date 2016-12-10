@@ -13,35 +13,54 @@ import static org.junit.Assert.assertNull;
  */
 public class PhantomReferenceFactoryTest {
 
+    private final PhantomReferenceFactory phantomReferenceFactory = PhantomReferenceFactory.getInstance(5);
+
     @Test
     public void requireResultWithEightReference() throws InterruptedException {
-        final PhantomReferenceFactory phantomReferenceFactory = PhantomReferenceFactory.getInstance(5);
 
-        final PhantomReference<A> phantomReference1 = phantomReferenceFactory.createPhantomReference(new A());
-        final PhantomReference<A> phantomReference2 = phantomReferenceFactory.createPhantomReference(new A());
-        final PhantomReference<A> phantomReference3 = phantomReferenceFactory.createPhantomReference(new A());
-        final PhantomReference<A> phantomReference4 = phantomReferenceFactory.createPhantomReference(new A());
-        final PhantomReference<A> phantomReference5 = phantomReferenceFactory.createPhantomReference(new A());
+        A a1 = phantomReferenceFactory.createReference();
+        A a2 = phantomReferenceFactory.createReference();
+        A a3 = phantomReferenceFactory.createReference();
+        A a4 = phantomReferenceFactory.createReference();
+        A a5 = phantomReferenceFactory.createReference();
 
-        System.gc();
-        Thread.sleep(1000);
-
-        final PhantomReference<A> phantomReference6 = phantomReferenceFactory.createPhantomReference(new A());
+        a3 = null;
+        a4 = null;
+        a5 = null;
 
         System.gc();
         Thread.sleep(1000);
+        System.gc();
 
-        final PhantomReference<A> phantomReference7 = phantomReferenceFactory.createPhantomReference(new A());
+        A a6 = phantomReferenceFactory.createReference();
 
         System.gc();
         Thread.sleep(1000);
+        System.gc();
 
-        final PhantomReference<A> phantomReference8 = phantomReferenceFactory.createPhantomReference(new A());
+        A a7 = phantomReferenceFactory.createReference();
 
         System.gc();
         Thread.sleep(1000);
+        System.gc();
+
+        A a8 = phantomReferenceFactory.createReference();
+
+        System.gc();
+        Thread.sleep(1000);
+        System.gc();
 
         final ReferenceQueue<A> referenceQueue = phantomReferenceFactory.getReferenceQueue();
+
+        a1 = null;
+        a2 = null;
+        a6 = null;
+        a7 = null;
+        a8 = null;
+
+        System.gc();
+        Thread.sleep(1000);
+        System.gc();
 
         assertNotNull(referenceQueue.poll());
         assertNotNull(referenceQueue.poll());
