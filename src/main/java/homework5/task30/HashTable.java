@@ -16,7 +16,6 @@ public class HashTable<K, V> {
     private int threshold;
     private Entry<K, V>[] table;
 
-
     public HashTable() {
         table = new Entry[DEFAULT_INITIAL_CAPACITY];
         this.capacity = DEFAULT_INITIAL_CAPACITY;
@@ -119,12 +118,18 @@ public class HashTable<K, V> {
     }
 
     private V putNullKey(final K key, final V value, final Entry<K, V>[] table) {
-        if (table[0] == null) {
+        if (table[0] != null) {
+            if (!table[0].value.equals(value)) {
+                table[0].value = value;
+                return value;
+            } else {
+                return null;
+            }
+        } else {
             table[0] = new Entry<>(0, key, value, null);
             size++;
             return value;
         }
-        return null;
     }
 
     private void resizeTable() {

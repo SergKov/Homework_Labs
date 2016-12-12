@@ -61,6 +61,18 @@ public class HashTableTest {
     }
 
     @Test
+    public void requireSizeAfterTwoPutNullKey() {
+
+        hashTable.put(null, "null");
+        hashTable.put(null, "null1");
+
+        final int expected = 1;
+        final int result = hashTable.size();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void requireSizeAfterPutNullValue() {
 
         hashTable.put("1", null);
