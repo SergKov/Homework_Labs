@@ -133,11 +133,16 @@ public class HashTable<K, V> {
     }
 
     private void resizeTable() {
+        size = 0;
         capacity *= 2;
         threshold = (int) (capacity * loadFactor);
         final Entry<K, V>[] newTable = new Entry[capacity];
 
-        Arrays.stream(table).forEach(entry -> putToHashTable(entry.key, entry.value, newTable));
+        Arrays.stream(table).forEach(entry -> {
+            if (entry != null) {
+                putToHashTable(entry.key, entry.value, newTable);
+            }
+        });
 
         this.table = newTable;
     }

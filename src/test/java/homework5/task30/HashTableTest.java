@@ -155,7 +155,7 @@ public class HashTableTest {
     }
 
     @Test
-    public void requireSizeAfterThirteenPut() {
+    public void requireSizeAfterFourteenPut() {
 
         hashTable.put("A", "A");
         hashTable.put("B", "AB");
@@ -170,8 +170,9 @@ public class HashTableTest {
         hashTable.put("K", "ABCDEFGHIJK");
         hashTable.put("L", "ABCDEFGHIJKL");
         hashTable.put("M", "ABCDEFGHIJKLM");
+        hashTable.put("N", "ABCDEFGHIJKLMN");
 
-        final int expected = 13;
+        final int expected = 14;
         final int result = hashTable.size();
 
         assertEquals(expected, result);
@@ -202,7 +203,7 @@ public class HashTableTest {
     }
 
     @Test
-    public void requireSizeAfterThirteenPutAndOneRemove() {
+    public void requireSizeAfterFourteenPutAndOneRemove() {
 
         hashTable.put("A", "A");
         hashTable.put("B", "AB");
@@ -217,17 +218,18 @@ public class HashTableTest {
         hashTable.put("K", "ABCDEFGHIJK");
         hashTable.put("L", "ABCDEFGHIJKL");
         hashTable.put("M", "ABCDEFGHIJKLM");
+        hashTable.put("N", "ABCDEFGHIJKLMN");
 
         hashTable.remove("C");
 
-        final int expected = 12;
+        final int expected = 13;
         final int result = hashTable.size();
 
         assertEquals(expected, result);
     }
 
     @Test
-    public void requireResultAfterThirteenPutRemoveFromTheMiddle() {
+    public void requireResultAfterFourteenPutRemoveFromTheMiddle() {
 
         hashTable.put("A", "A");
         hashTable.put("B", "AB");
@@ -242,6 +244,7 @@ public class HashTableTest {
         hashTable.put("K", "ABCDEFGHIJK");
         hashTable.put("L", "ABCDEFGHIJKL");
         hashTable.put("M", "ABCDEFGHIJKLM");
+        hashTable.put("N", "ABCDEFGHIJKLMN");
 
         final String value = hashTable.remove("G");
 
@@ -298,7 +301,7 @@ public class HashTableTest {
     }
 
     @Test
-    public void requireResultAfterThirteenPutGetEnd() {
+    public void requireResultAfterFourteenPutGetEnd() {
 
         hashTable.put("A", "A");
         hashTable.put("B", "AB");
@@ -313,17 +316,18 @@ public class HashTableTest {
         hashTable.put("K", "ABCDEFGHIJK");
         hashTable.put("L", "ABCDEFGHIJKL");
         hashTable.put("M", "ABCDEFGHIJKLM");
+        hashTable.put("N", "ABCDEFGHIJKLMN");
 
-        final String value = hashTable.get("M");
+        final String value = hashTable.get("N");
 
-        final String expected = "ABCDEFGHIJKLM";
+        final String expected = "ABCDEFGHIJKLMN";
         final String result = value;
 
         assertEquals(expected, result);
     }
 
     @Test
-    public void requireResultAfterThirteenPutGetStart() {
+    public void requireResultAfterFourteenPutGetStart() {
 
         hashTable.put("A", "A");
         hashTable.put("B", "AB");
@@ -338,6 +342,7 @@ public class HashTableTest {
         hashTable.put("K", "ABCDEFGHIJK");
         hashTable.put("L", "ABCDEFGHIJKL");
         hashTable.put("M", "ABCDEFGHIJKLM");
+        hashTable.put("N", "ABCDEFGHIJKLMN");
 
         final String value = hashTable.get("A");
 
@@ -348,7 +353,7 @@ public class HashTableTest {
     }
 
     @Test
-    public void requireResultAfterThirteenPutGetMiddle() {
+    public void requireResultAfterFourteenPutGetMiddle() {
 
         hashTable.put("A", "A");
         hashTable.put("B", "AB");
@@ -363,6 +368,7 @@ public class HashTableTest {
         hashTable.put("K", "ABCDEFGHIJK");
         hashTable.put("L", "ABCDEFGHIJKL");
         hashTable.put("M", "ABCDEFGHIJKLM");
+        hashTable.put("N", "ABCDEFGHIJKLMN");
 
         final String value = hashTable.get("G");
 
