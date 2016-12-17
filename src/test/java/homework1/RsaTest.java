@@ -13,7 +13,7 @@ public class RsaTest {
 
     @Test
     public void test() {
-        final String testString = "Encrypted String is Hello World";
+        final String testString = "Encrypted String is Hello Word";
         final byte[] encrypted = rsa.encrypt(testString.getBytes());
         final byte[] decryped = rsa.decrypt(encrypted);
         assertEquals(testString, new String(decryped));

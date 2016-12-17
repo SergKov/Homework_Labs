@@ -3,7 +3,7 @@ package homework4.task23;
 /**
  * Created by Sergey on 19.11.2016.
  * <p>
- * State
+ * Originator
  */
 
 public abstract class GrantOrder {

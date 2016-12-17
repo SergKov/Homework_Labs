@@ -14,6 +14,7 @@ public class TicTacToy {
     private static final int DRAW = 1;
     private static final int CROSS_WON = 2;
     private static final int NOUGHT_WON = 3;
+
     public static final int ROWS = 3;
     public static final int COLS = 3;
 
