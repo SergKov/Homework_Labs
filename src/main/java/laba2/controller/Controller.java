@@ -10,8 +10,15 @@ import java.util.List;
  */
 public abstract class Controller {
 
-    public static final String SENTENCE_DELIMITER = "[.!?]+";
-    public static final String WORDS_DELIMITER = "[\\s]+";
+    public static final String SENTENCE_DELIMITER = "(?<=\\.{0,})|(?=\\.{0,})|(?<=!{0,})|(?=!{0,})|(?<=\\?{0,})|(?=!{0,})";
+    public static final String WORDS_DELIMITER = "(?<=\\s{0,})|(?=\\s{0,})|(?<=,{0,})|(?=,{0,})|(?<=;{0,})|(?=;{0,})";
+
+    public static final char DOT = '.';
+    public static final char QUESTION_MARK = '?';
+    public static final char EXCLAMATION_MARK = '!';
+    public static final char SPACE = ' ';
+    public static final char COMMA = ',';
+    public static final char SEMICOLON = ';';
 
     protected String name;
 

@@ -2,7 +2,6 @@ package laba2;
 
 import laba2.utils.Sentences;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,6 +19,15 @@ public class Sentence {
 
     public Sentence(String words) {
         this.words = Sentences.toListWords(words);
+    }
+
+    public Sentence addMark(final PunctualMark mark) {
+        if (mark != null) {
+            words.add(new Word(mark.getMarkAsString()));
+            return new Sentence(words);
+        } else {
+            return new Sentence();
+        }
     }
 
     public List<Word> getWords() {

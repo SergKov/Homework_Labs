@@ -25,9 +25,9 @@ public class File extends Controller {
         final Path pathToFile = Paths.get(name);
         final byte[] allBytes = Files.readAllBytes(pathToFile);
         final String resultString = new String(allBytes);
-        final String[] allSentences = resultString.split(SENTENCE_DELIMITER);
+        final String[] allSentence = resultString.split(SENTENCE_DELIMITER);
 
-        return Sentences.toListSentence(allSentences);
+        return Sentences.toListSentence(allSentence);
     }
 
     @Override
