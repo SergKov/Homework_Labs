@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.runners.Parameterized.*;
 
 /**
  * Created by koval on 18.12.2016.
@@ -17,13 +18,13 @@ public class PolishTest {
 
     public static final double DELTA = .05;
 
-    @Parameterized.Parameter(value = 0)
+    @Parameter
     public String expression;
 
-    @Parameterized.Parameter(value = 1)
+    @Parameter(value = 1)
     public Double expected;
 
-    @Parameterized.Parameters
+    @Parameters
     public static List<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {"2 * ( 3 + 4 ) ", 14.0},
