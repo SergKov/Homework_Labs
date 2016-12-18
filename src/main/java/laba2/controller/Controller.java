@@ -10,8 +10,8 @@ import java.util.List;
  */
 public abstract class Controller {
 
-    public static final String SENTENCE_DELIMITER = "(?<=\\.{0,})|(?=\\.{0,})|(?<=!{0,})|(?=!{0,})|(?<=\\?{0,})|(?=!{0,})";
-    public static final String WORDS_DELIMITER = "(?<=\\s{0,})|(?=\\s{0,})|(?<=,{0,})|(?=,{0,})|(?<=;{0,})|(?=;{0,})";
+    public static final String SENTENCE_DELIMITER = "[\\s,;]+";
+    public static final String WORDS_DELIMITER = "[.?!]+";
 
     public static final char DOT = '.';
     public static final char QUESTION_MARK = '?';

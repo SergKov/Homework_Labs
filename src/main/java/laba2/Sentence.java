@@ -1,6 +1,7 @@
 package laba2;
 
 import laba2.utils.Sentences;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 
@@ -11,7 +12,8 @@ public class Sentence {
 
     private List<Word> words;
 
-    public Sentence() { }
+    public Sentence() {
+    }
 
     public Sentence(List<Word> words) {
         this.words = words;
@@ -36,8 +38,13 @@ public class Sentence {
 
     @Override
     public String toString() {
+
         final StringBuilder sb = new StringBuilder();
-        words.forEach(sb::append);
+
+        if (!CollectionUtils.isEmpty(words)) {
+            words.forEach(sb::append);
+        }
+
         return sb.toString();
     }
 }

@@ -11,7 +11,7 @@ import java.util.*;
  */
 public class Console extends Controller {
 
-//    private final Queue<PunctualMark> queue = new ArrayDeque<>();
+    private final Queue<PunctualMark> queue = new ArrayDeque<>();
 
     public Console(String string) {
         super(string);
@@ -20,11 +20,11 @@ public class Console extends Controller {
     @Override
     public List<Sentence> read() {
 
-//        name.chars().forEach(value -> {
-//            if (value == DOT || value == EXCLAMATION_MARK || value == QUESTION_MARK) {
-//                queue.offer(new PunctualMark((char) value));
-//            }
-//        });
+        name.chars().forEach(value -> {
+            if (value == DOT || value == EXCLAMATION_MARK || value == QUESTION_MARK) {
+                queue.offer(new PunctualMark((char) value));
+            }
+        });
 
         final String[] allSentences = name.split(SENTENCE_DELIMITER);
         return Sentences.toListSentence(allSentences);
@@ -33,7 +33,7 @@ public class Console extends Controller {
     @Override
     public void print(List<Sentence> sentences) {
         sentences.forEach(sentence -> {
-            System.out.print(Sentences.swapWords(sentence));
+            System.out.print(Sentences.swapWords(sentence).addMark(queue.poll()));
         });
     }
 }

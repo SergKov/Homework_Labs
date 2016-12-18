@@ -27,7 +27,7 @@ public class Text {
     }
 
     public static void main(String[] args) throws IOException {
-        final Text text = new Text(new Console("Abs def. Shjk dhjkl?AAA BBB CCCC.. GGG"));
+        final Text text = new Text(new Console("Abs def. Shjk dhjkl?AAA BBB CCCC! GGG"));
         final List<Sentence> sentenceList = text.read();
 
         text.write(sentenceList);
