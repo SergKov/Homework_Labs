@@ -14,8 +14,4 @@ public class PunctualMark {
     public char getMark() {
         return mark;
     }
-
-    public String getMarkAsString() {
-        return "" + mark;
-    }
 }

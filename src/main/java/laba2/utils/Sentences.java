@@ -1,12 +1,15 @@
 package laba2.utils;
 
-import laba2.PunctualMark;
 import laba2.Sentence;
 import laba2.Word;
+import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-import static laba2.controller.Controller.*;
+import static laba2.controller.Controller.WORDS_DELIMITER;
 
 /**
  * Created by koval on 17.12.2016.
@@ -18,7 +21,6 @@ public class Sentences {
     public static List<Word> toListWords(String sentence) {
 
         final List<Word> wordsList = new ArrayList<>();
-
         final String[] words = sentence.split(WORDS_DELIMITER);
 
         Arrays.stream(words).forEach(word -> {
@@ -39,16 +41,12 @@ public class Sentences {
         return sentenceList;
     }
 
-    public static Sentence swapWords(final Sentence words) {
+    public static Sentence swapWords(final List<Word> words) {
 
-        final List<Word> listWords = words.getWords();
-
-        if (words.getWords().size() > 1) {
-            Word tmp = words.getWords().get(0);
-            listWords.set(0, listWords.get(listWords.size() - 1));
-            listWords.set(listWords.size() - 1, tmp);
+        if (!CollectionUtils.isEmpty(words)) {
+            Collections.swap(words, 0, words.size() - 1);
         }
 
-        return new Sentence(listWords);
+        return new Sentence(words);
     }
 }

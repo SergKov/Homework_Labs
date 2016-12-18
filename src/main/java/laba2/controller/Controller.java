@@ -1,8 +1,12 @@
 package laba2.controller;
 
 import laba2.Sentence;
+import laba2.Word;
+import laba2.utils.Sentences;
 
 import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,23 +14,23 @@ import java.util.List;
  */
 public abstract class Controller {
 
-    public static final String SENTENCE_DELIMITER = "[\\s,;]+";
-    public static final String WORDS_DELIMITER = "[.?!]+";
+    public static final String SENTENCE_DELIMITER = "[.!?]+";
+    public static final String WORDS_DELIMITER = "[\\s]+";
 
-    public static final char DOT = '.';
-    public static final char QUESTION_MARK = '?';
-    public static final char EXCLAMATION_MARK = '!';
-    public static final char SPACE = ' ';
-    public static final char COMMA = ',';
-    public static final char SEMICOLON = ';';
+    public abstract List<Sentence> read(String src) throws IOException;
 
-    protected String name;
+    public abstract void printRevert(List<Sentence> sentences) throws IOException;
 
-    public Controller(String name) {
-        this.name = name;
+    public abstract void writeRevert(String src, List<Sentence> sentences) throws IOException;
+
+    public List<Sentence> swapWords(final List<Sentence> sentences) {
+
+        final List<Sentence> result = new ArrayList<>();
+
+        sentences.forEach(sentence -> {
+            result.add(Sentences.swapWords(sentence.getWords()));
+        });
+
+        return result;
     }
-
-    public abstract List<Sentence> read() throws IOException;
-
-    public abstract void print(List<Sentence> sentences) throws IOException;
 }

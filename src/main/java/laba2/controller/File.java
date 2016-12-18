@@ -15,26 +15,29 @@ import java.util.List;
  */
 public class File extends Controller {
 
-    public File(String name) {
-        super(name);
-    }
-
     @Override
-    public List<Sentence> read() throws IOException {
+    public List<Sentence> read(final String name) throws IOException {
 
         final Path pathToFile = Paths.get(name);
         final byte[] allBytes = Files.readAllBytes(pathToFile);
         final String resultString = new String(allBytes);
-        final String[] allSentence = resultString.split(SENTENCE_DELIMITER);
+        final String[] allSentences = resultString.split(SENTENCE_DELIMITER);
 
-        return Sentences.toListSentence(allSentence);
+        return Sentences.toListSentence(allSentences);
     }
 
     @Override
-    public void print(List<Sentence> src) throws IOException {
+    public void printRevert(List<Sentence> sentences) {
+        throw new UnsupportedOperationException();
+    }
 
-        FileWriter fileWriter = new FileWriter(name);
-        for (Sentence sentence : src) {
+    @Override
+    public void writeRevert(String src, List<Sentence> sentences) throws IOException {
+
+        final List<Sentence> sentenceList = swapWords(sentences);
+
+        FileWriter fileWriter = new FileWriter(src);
+        for (Sentence sentence : sentenceList) {
             fileWriter.write(sentence.toString());
         }
         fileWriter.close();
