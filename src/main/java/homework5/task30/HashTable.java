@@ -92,6 +92,7 @@ public class HashTable<K, V> {
         if (entry == null) {
             return putToHashTableIfEntryNull(key, value, table, positionToInsert);
         } else {
+
             while (entry.next != null) {
                 if (entry.key.equals(key)) {
                     entry.value = value;
@@ -118,13 +119,27 @@ public class HashTable<K, V> {
     }
 
     private V putNullKey(final K key, final V value, final Entry<K, V>[] table) {
+
         if (table[0] != null) {
-            if (!table[0].value.equals(value)) {
-                table[0].value = value;
-                return value;
-            } else {
-                return null;
+
+            Entry<K, V> entry = table[0];
+
+            while (entry.next != null) {
+                if (entry.key == null) {
+                    entry.value = value;
+                    return value;
+                }
+                entry = entry.next;
             }
+
+            if (entry.key == null) {
+                entry.value = value;
+            } else {
+                entry.next = new Entry<>(0, key, value, null);
+                size++;
+            }
+
+            return value;
         } else {
             table[0] = new Entry<>(0, key, value, null);
             size++;
