@@ -157,6 +157,10 @@ public class HashTable<K, V> {
         Arrays.stream(table).forEach(entry -> {
             if (entry != null) {
                 putToHashTable(entry.key, entry.value, newTable);
+                while (entry.next != null) {
+                    putToHashTable(entry.next.key, entry.next.value, newTable);
+                    entry = entry.next;
+                }
             }
         });
 

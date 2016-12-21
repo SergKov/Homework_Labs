@@ -389,17 +389,36 @@ public class HashTableTest {
         assertEquals(expected, result);
     }
 
-//    @Test
-//    public void requireSizeAfterManyPut() { //does not work
-//
-//        for (int i = 0; i < 14; i++) {
-//            hashTable.put("A" + (int)((Math.random() + 100) * i), "A" + i);
-//        }
-//
-//        final int expected = 14;
-//        final int result = hashTable.size();
-//
-//        assertEquals(expected, result);
-//    }
+    @Test
+    public void requireSizeAfterManyPut() {
+
+        for (int i = 0; i < 1_000_000; i++) {
+            hashTable.put("A" + i, "A" + i);
+        }
+
+        final int expected = 1_000_000;
+        final int result = hashTable.size();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void requireSizeAfterManyPutRemove() {
+
+        for (int i = 0; i < 1_000_000; i++) {
+            hashTable.put("A" + i, "A" + i);
+        }
+
+        hashTable.remove("A1");
+        hashTable.remove("A10");
+        hashTable.remove("A10000");
+        hashTable.remove("A999999");
+        hashTable.remove("A500000");
+
+        final int expected = 1_000_000 - 5;
+        final int result = hashTable.size();
+
+        assertEquals(expected, result);
+    }
 
 }
