@@ -45,7 +45,9 @@ public class HashTable<K, V> {
                 Entry<K, V> entry = table[i];
                 Entry<K, V> entryPrev = null;
                 while (entry != null) {
+
                     Entry<K, V> entryNext = entry.next;
+
                     if (entry.key.equals(key)) {
                         if (entryPrev != null) {
                             entryPrev.next = entryNext;
@@ -54,10 +56,9 @@ public class HashTable<K, V> {
                         }
                         size--;
                         return entry.value;
-                    } else {
-                        entryPrev = entry;
-                        entry = entry.next;
                     }
+                    entryPrev = entry;
+                    entry = entry.next;
                 }
             }
         }
@@ -69,11 +70,11 @@ public class HashTable<K, V> {
             if (table[i] != null) {
                 Entry<K, V> entry = table[i];
                 while (entry != null) {
+
                     if (entry.key.equals(key)) {
                         return entry;
-                    } else {
-                        entry = entry.next;
                     }
+                    entry = entry.next;
                 }
             }
         }
@@ -86,36 +87,36 @@ public class HashTable<K, V> {
             return putNullKey(key, value, table);
         }
 
-        final int positionToInsert = key.hashCode() % table.length;
+        final int positionToInsert = Math.abs(key.hashCode() % table.length);
         Entry<K, V> entry = table[positionToInsert];
 
         if (entry == null) {
             return putToHashTableIfEntryNull(key, value, table, positionToInsert);
-        } else {
-
-            while (entry.next != null) {
-                if (entry.key.equals(key)) {
-                    entry.value = value;
-                    return value;
-                }
-                entry = entry.next;
-            }
-
-            if (entry.key.equals(key)) {
-                entry.value = value;
-            } else {
-                entry.next = new Entry<>(key.hashCode(), key, value, null);
-                size++;
-            }
-            return value;
         }
+
+        V prev = null;
+        Entry<K, V> prevNode = null;
+
+        while (entry != null) {
+            if (entry.key.equals(key)) {
+                prev = entry.value;
+                entry.value = value;
+                return prev;
+            }
+            prevNode = entry;
+            entry = entry.next;
+        }
+
+        prevNode.next = new Entry<>(key.hashCode(), key, value, null);
+        size++;
+        return prev;
     }
 
 
     private V putToHashTableIfEntryNull(final K key, final V value, final Entry<K, V>[] table, int positionToInsert) {
         table[positionToInsert] = new Entry<>(key.hashCode(), key, value, null);
         size++;
-        return value;
+        return null;
     }
 
     private V putNullKey(final K key, final V value, final Entry<K, V>[] table) {
@@ -123,28 +124,28 @@ public class HashTable<K, V> {
         if (table[0] != null) {
 
             Entry<K, V> entry = table[0];
+            V prev = null;
+            Entry<K, V> prevNode = null;
 
-            while (entry.next != null) {
+            while (entry != null) {
                 if (entry.key == null) {
+                    prev = entry.value;
                     entry.value = value;
-                    return value;
+                    return prev;
                 }
+                prevNode = entry;
                 entry = entry.next;
             }
 
-            if (entry.key == null) {
-                entry.value = value;
-            } else {
-                entry.next = new Entry<>(0, key, value, null);
-                size++;
-            }
-
-            return value;
-        } else {
-            table[0] = new Entry<>(0, key, value, null);
+            prevNode.next = new Entry<>(0, key, value, null);
             size++;
-            return value;
+            return prev;
         }
+
+        table[0] = new Entry<>(0, key, value, null);
+        size++;
+        return null;
+
     }
 
     private void resizeTable() {

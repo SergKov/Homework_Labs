@@ -73,6 +73,17 @@ public class HashTableTest {
     }
 
     @Test
+    public void requireResultAfterTwoPutNullKey() {
+
+        hashTable.put(null, "null");
+
+        final String expected = "null";
+        final String result = hashTable.put(null, "null1");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void requireSizeAfterPutNullValue() {
 
         hashTable.put("1", null);
@@ -88,7 +99,7 @@ public class HashTableTest {
 
         final String value = hashTable.put("1", "A");
 
-        final String expected = "A";
+        final String expected = null;
         final String result = value;
 
         assertEquals(expected, result);
@@ -377,5 +388,18 @@ public class HashTableTest {
 
         assertEquals(expected, result);
     }
+
+//    @Test
+//    public void requireSizeAfterManyPut() { //does not work
+//
+//        for (int i = 0; i < 14; i++) {
+//            hashTable.put("A" + (int)((Math.random() + 100) * i), "A" + i);
+//        }
+//
+//        final int expected = 14;
+//        final int result = hashTable.size();
+//
+//        assertEquals(expected, result);
+//    }
 
 }
