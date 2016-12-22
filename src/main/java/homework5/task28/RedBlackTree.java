@@ -1,7 +1,6 @@
 package homework5.task28;
 
 import java.util.Comparator;
-import java.util.HashMap;
 
 /**
  * Created by koval on 13.12.2016.
@@ -53,6 +52,7 @@ public class RedBlackTree<K, V> {
                     leftOf(node).color = RED;
                     insert(node);
                     size++;
+                    return null;
                 }
 
             } else {
@@ -65,6 +65,7 @@ public class RedBlackTree<K, V> {
                     rightOf(node).color = RED;
                     insert(node);
                     size++;
+                    return null;
                 }
             }
         }
@@ -86,24 +87,31 @@ public class RedBlackTree<K, V> {
 
     private void insert(Node<K, V> node) {
 
-        while (parentOf(node).color == RED) {
+        node.color = RED;
+
+        while (node != null && node.parent != null && node.parent.color == RED) {
 
             if (parentOf(node) == leftOf(grandparentOf(node))) {
 
                 final Node<K, V> rightGrantParentNode = rightOf(grandparentOf(node));
+
                 if (isRed(rightGrantParentNode)) {
                     parentOf(node).color = BLACK;
                     rightGrantParentNode.color = BLACK;
                     grandparentOf(node).color = RED;
                     node = grandparentOf(node);
-                } else if (node == rightOf(parentOf(node))) {
-                    node = parentOf(node);
-                    leftRotate(node);
                 } else {
+
+                    if (node == rightOf(parentOf(node))) {
+                        node = parentOf(node);
+                        leftRotate(node);
+                    }
+
                     parentOf(node).color = BLACK;
                     grandparentOf(node).color = RED;
                     rightRotate(node);
                 }
+
             } else {
 
                 final Node<K, V> leftGrantParentNode = leftOf(grandparentOf(node));
@@ -112,10 +120,13 @@ public class RedBlackTree<K, V> {
                     leftGrantParentNode.color = BLACK;
                     grandparentOf(node).color = RED;
                     node = grandparentOf(node);
-                } else if (node == leftOf(parentOf(node))) {
-                    node = parentOf(node);
-                    rightRotate(node);
                 } else {
+
+                    if (node == leftOf(parentOf(node))) {
+                        node = parentOf(node);
+                        rightRotate(node);
+                    }
+
                     parentOf(node).color = BLACK;
                     grandparentOf(node).color = RED;
                     leftRotate(node);
@@ -133,7 +144,10 @@ public class RedBlackTree<K, V> {
         if (leftOf(rightNode) != null) {
             leftOf(rightNode).parent = node;
         }
-        rightOf(node).parent = rightOf(node);
+
+        if (rightOf(node) != null) {
+            rightOf(node).parent = rightOf(node);
+        }
 
         if (node.parent == null) {
             root = rightNode;
@@ -143,8 +157,10 @@ public class RedBlackTree<K, V> {
             parentOf(node).right = rightNode;
         }
 
-        rightNode.left = node;
-        node.parent = rightNode;
+        if (rightNode != null) {
+            rightNode.left = node;
+            node.parent = rightNode;
+        }
     }
 
     private void rightRotate(final Node<K, V> node) {
@@ -155,18 +171,23 @@ public class RedBlackTree<K, V> {
         if (rightOf(leftNode) != null) {
             rightOf(leftNode).parent = node;
         }
-        rightOf(node).parent = rightOf(node);
+
+        if (rightOf(node) != null) {
+            rightOf(node).parent = rightOf(node);
+        }
 
         if (node.parent == null) {
             root = leftNode;
-        } else if (parentOf(node).right == leftNode) {
-            parentOf(leftNode).right = node;
+        } else if (leftNode != null && leftNode.parent != null && parentOf(node).right == leftNode) {
+            leftNode.parent.right = node;
         } else {
-            parentOf(node).left = leftNode;
+            node.parent.left = leftNode;
         }
 
-        leftNode.right = node;
-        node.parent = leftNode;
+        if (leftNode != null) {
+            leftNode.right = node;
+            node.parent = leftNode;
+        }
     }
 
     public V get(final K key) {

@@ -16,7 +16,8 @@ import static laba2.controller.Controller.WORDS_DELIMITER;
  */
 public class Sentences {
 
-    private Sentences() { }
+    private Sentences() {
+    }
 
     public static List<Word> toListWords(String sentence) {
 
@@ -36,6 +37,17 @@ public class Sentences {
 
         Arrays.stream(sentences).forEach(sentence -> {
             sentenceList.add(new Sentence(sentence));
+        });
+
+        return sentenceList;
+    }
+
+    public static List<Sentence> toListSentence(final List<String> strings) {
+
+        final List<Sentence> sentenceList = new ArrayList<>();
+
+        strings.forEach(string -> {
+            sentenceList.add(new Sentence(string));
         });
 
         return sentenceList;

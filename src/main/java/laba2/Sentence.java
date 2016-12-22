@@ -2,7 +2,6 @@ package laba2;
 
 import laba2.utils.Sentences;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

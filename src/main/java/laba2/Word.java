@@ -1,7 +1,5 @@
 package laba2;
 
-import java.util.List;
-
 /**
  * Created by Sergey on 15.12.2016.
  */
@@ -19,6 +17,6 @@ public class Word {
 
     @Override
     public String toString() {
-        return symbols + " ";
+        return symbols;
     }
 }
