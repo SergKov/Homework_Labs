@@ -139,4 +139,59 @@ public class TextTest {
         textSpy.read(PATH_TO_FILE);
         verify(consoleController, times(0)).read(PATH_TO_FILE);
     }
+
+    @Test
+    public void requireArgumentWithWriteToConsole() throws IOException {
+
+        final Text text = new Text(consoleController);
+        final Text textSpy = spy(text);
+        final List<Sentence> sentences = text.read(SOME_TEXT);
+
+        textSpy.write(sentences);
+        verify(consoleController).printRevert(sentences);
+    }
+
+    @Test
+    public void requireInvokeWriteToConsole() throws IOException {
+
+        final Text text = new Text(consoleController);
+        final Text textSpy = spy(text);
+        final List<Sentence> sentences = text.read(SOME_TEXT);
+
+        textSpy.write(sentences);
+        verify(consoleController, times(1)).printRevert(sentences);
+    }
+
+    @Test
+    public void requireArgumentWithWriteToFile() throws IOException {
+
+        final Text text = new Text(fileController);
+        final Text textSpy = spy(text);
+        final List<Sentence> sentences = text.read(PATH_TO_FILE);
+
+        textSpy.write(PATH_TO_FILE, sentences);
+        verify(fileController).writeRevert(eq(PATH_TO_FILE), eq(sentences));
+    }
+
+    @Test
+    public void requireInvokeWriteToFile() throws IOException {
+
+        final Text text = new Text(fileController);
+        final Text textSpy = spy(text);
+        final List<Sentence> sentences = text.read(PATH_TO_FILE);
+
+        textSpy.write(PATH_TO_FILE, sentences);
+        verify(fileController).writeRevert(PATH_TO_FILE, sentences);
+    }
+
+    @Test
+    public void requireNotInvokeWriteToConsole() throws Exception {
+
+        final Text text = new Text(fileController);
+        final Text textSpy = spy(text);
+        final List<Sentence> sentences = text.read(PATH_TO_FILE);
+
+        textSpy.write(PATH_TO_FILE, sentences);
+        verify(consoleController, never()).printRevert(sentences);
+    }
 }

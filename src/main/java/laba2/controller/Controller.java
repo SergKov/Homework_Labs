@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class Controller {
 
     public static final String SENTENCE_DELIMITER = "(?=(?!^)[\\.!\\?])(?<![\\.!\\?])|(?![\\.!\\?])(?<=[\\.!\\?])";
-    public static final String WORDS_DELIMITER = "(?<=\\s)|(?=\\s)";
+    public static final String WORDS_DELIMITER = "((?<=\\s)|(?=\\s))";
 
     public abstract List<Sentence> read(String src) throws IOException;
 
