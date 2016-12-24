@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static laba2.controller.Controller.WORDS_DELIMITER;
+import static laba2.service.Reader.WORDS_DELIMITER;
 
 /**
  * Created by koval on 17.12.2016.

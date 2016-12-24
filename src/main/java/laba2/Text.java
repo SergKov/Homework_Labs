@@ -1,8 +1,11 @@
 package laba2;
 
-import laba2.controller.Controller;
+import laba2.service.Reader;
+import laba2.utils.Sentences;
+import laba2.view.View;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,25 +13,38 @@ import java.util.List;
  */
 public class Text {
 
-    private final Controller controller;
+    private final Reader reader;
+    private final View view;
 
     private List<Sentence> sentences;
 
-    public Text(Controller controller) {
-        this.controller = controller;
+    public Text(Reader reader, View view) {
+        this.reader = reader;
+        this.view = view;
     }
 
     public List<Sentence> read(final String string) throws IOException {
-        sentences = controller.read(string);
+        sentences = reader.read(string);
         return sentences;
     }
 
-    public void write(final List<Sentence> sentences) throws IOException {
-        controller.printRevert(sentences);
+    public List<Sentence> swapWords(final List<Sentence> sentences) {
+
+        final List<Sentence> result = new ArrayList<>();
+
+        sentences.forEach(sentence -> {
+            result.add(Sentences.swapWords(sentence.getWords()));
+        });
+
+        return result;
+    }
+
+    public void print(final List<Sentence> sentences) throws IOException {
+        view.printRevert(sentences);
     }
 
     public void write(final String name, final List<Sentence> sentences) throws IOException {
-        controller.writeRevert(name, sentences);
+        view.writeRevert(name, sentences);
     }
 
     public List<Sentence> getSentences() {

@@ -1,10 +1,13 @@
 package laba2;
 
-import laba2.controller.Console;
-import laba2.controller.Controller;
-import laba2.controller.File;
+import laba2.service.ConsoleReader;
+import laba2.service.FileReader;
+import laba2.service.Reader;
+import laba2.view.ConsoleView;
+import laba2.view.FileView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -27,20 +30,28 @@ public class TextTest {
     private static final String SOME_TEXT = "A B C.a b c.1 2 33!!!";
 
     @Spy
-    private final Controller consoleController = new Console();
+    private final Reader consoleReader = new ConsoleReader();
 
     @Spy
-    private final Controller fileController = new File();
+    private final Reader fileReader = new FileReader();
+
+    @Mock
+    private ConsoleView console;
+
+    @Mock
+    private FileView file;
 
     @Test
     public void requireResultFromConsoleWithAllMarks() throws IOException {
 
-        final Text text = new Text(consoleController);
+        final ConsoleView console = spy(new ConsoleView());
+        final Text text = new Text(consoleReader, console);
         final List<Sentence> sentences = text.read("A B C.1 2 3...a b c!!!A B C???");
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.setOut(new PrintStream(baos));
-        text.write(sentences);
+        final List<Sentence> revertSentences = text.swapWords(sentences);
+        text.print(revertSentences);
         final String output = new String(baos.toByteArray());
 
         assertEquals("C B A.3 2 1...c b a!!!C B A???", output);
@@ -49,13 +60,15 @@ public class TextTest {
     @Test
     public void requireResultFromConsoleWithLongSentence() throws IOException {
 
-        final Text text = new Text(consoleController);
+        final ConsoleView console = spy(new ConsoleView());
+        final Text text = new Text(consoleReader, console);
         final List<Sentence> sentences = text.read("A B C D E F G.1 2 3...a b c d e f g, h i j : k l m " +
                 "; n!!!A B C D 123 11 5 7 10???");
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         System.setOut(new PrintStream(baos));
-        text.write(sentences);
+        final List<Sentence> revertSentences = text.swapWords(sentences);
+        text.print(revertSentences);
         final String output = new String(baos.toByteArray());
 
         assertEquals("G B C D E F A.3 2 1...n b c d e f g, h i j : k l m ; a!!!10 B C D 123 11 5 7 A???", output);
@@ -64,10 +77,11 @@ public class TextTest {
     @Test
     public void requireResultFromFileWithAllMarks() throws IOException {
 
-        final Text text = new Text(fileController);
+        final FileView fileView = spy(new FileView());
+        final Text text = new Text(fileReader, fileView);
         final List<Sentence> sentences = text.read(PATH_TO_FILE);
 
-        text.write(PATH_TO_FILE, sentences);
+        text.write(PATH_TO_FILE, text.swapWords(sentences));
 
         final List<Sentence> output = text.read(PATH_TO_FILE);
 
@@ -83,115 +97,115 @@ public class TextTest {
     @Test
     public void requireArgumentWithReadFromConsole() throws IOException {
 
-        final Text text = new Text(consoleController);
+        final Text text = new Text(consoleReader, console);
         final Text textSpy = spy(text);
 
         textSpy.read(SOME_TEXT);
-        verify(consoleController).read(eq(SOME_TEXT));
+        verify(consoleReader).read(eq(SOME_TEXT));
     }
 
     @Test
     public void requireInvokeReadConsole() throws IOException {
 
-        final Text text = new Text(consoleController);
+        final Text text = new Text(consoleReader, console);
         final Text textSpy = spy(text);
 
         textSpy.read(SOME_TEXT);
-        verify(consoleController, times(1)).read(SOME_TEXT);
+        verify(consoleReader, times(1)).read(SOME_TEXT);
     }
 
     @Test
     public void requireNotInvokeReadFile() throws IOException {
 
-        final Text text = new Text(consoleController);
+        final Text text = new Text(consoleReader, console);
         final Text textSpy = spy(text);
 
         textSpy.read(SOME_TEXT);
-        verify(fileController, never()).read(SOME_TEXT);
+        verify(fileReader, never()).read(SOME_TEXT);
     }
 
     @Test
     public void requireArgumentWithReadFromFile() throws IOException {
 
-        final Text text = new Text(fileController);
+        final Text text = new Text(fileReader, file);
         final Text textSpy = spy(text);
 
         textSpy.read(PATH_TO_FILE);
-        verify(fileController).read(eq(PATH_TO_FILE));
+        verify(fileReader).read(eq(PATH_TO_FILE));
     }
 
     @Test
     public void requireInvokeReadFile() throws IOException {
 
-        final Text text = new Text(fileController);
+        final Text text = new Text(fileReader, file);
         final Text textSpy = spy(text);
 
         textSpy.read(PATH_TO_FILE);
-        verify(fileController, times(1)).read(PATH_TO_FILE);
+        verify(fileReader, times(1)).read(PATH_TO_FILE);
     }
 
     @Test
     public void requireNotInvokeReadConsole() throws Exception {
 
-        final Text text = new Text(fileController);
+        final Text text = new Text(fileReader, file);
         final Text textSpy = spy(text);
 
         textSpy.read(PATH_TO_FILE);
-        verify(consoleController, times(0)).read(PATH_TO_FILE);
+        verify(consoleReader, times(0)).read(PATH_TO_FILE);
     }
 
     @Test
     public void requireArgumentWithWriteToConsole() throws IOException {
 
-        final Text text = new Text(consoleController);
+        final Text text = new Text(consoleReader, console);
         final Text textSpy = spy(text);
         final List<Sentence> sentences = text.read(SOME_TEXT);
 
-        textSpy.write(sentences);
-        verify(consoleController).printRevert(sentences);
+        textSpy.print(sentences);
+        verify(consoleReader).read(eq(SOME_TEXT));
     }
 
     @Test
     public void requireInvokeWriteToConsole() throws IOException {
 
-        final Text text = new Text(consoleController);
+        final Text text = new Text(consoleReader, console);
         final Text textSpy = spy(text);
         final List<Sentence> sentences = text.read(SOME_TEXT);
 
-        textSpy.write(sentences);
-        verify(consoleController, times(1)).printRevert(sentences);
+        textSpy.print(sentences);
+        verify(consoleReader, times(1)).read(SOME_TEXT);
     }
 
     @Test
     public void requireArgumentWithWriteToFile() throws IOException {
 
-        final Text text = new Text(fileController);
+        final Text text = new Text(fileReader, file);
         final Text textSpy = spy(text);
         final List<Sentence> sentences = text.read(PATH_TO_FILE);
 
         textSpy.write(PATH_TO_FILE, sentences);
-        verify(fileController).writeRevert(eq(PATH_TO_FILE), eq(sentences));
+        verify(file).writeRevert(eq(PATH_TO_FILE), eq(sentences));
     }
 
     @Test
     public void requireInvokeWriteToFile() throws IOException {
 
-        final Text text = new Text(fileController);
+        final Text text = new Text(fileReader, file);
         final Text textSpy = spy(text);
         final List<Sentence> sentences = text.read(PATH_TO_FILE);
 
         textSpy.write(PATH_TO_FILE, sentences);
-        verify(fileController).writeRevert(PATH_TO_FILE, sentences);
+        verify(file).writeRevert(PATH_TO_FILE, sentences);
     }
 
     @Test
     public void requireNotInvokeWriteToConsole() throws Exception {
 
-        final Text text = new Text(fileController);
+        final Text text = new Text(fileReader, file);
         final Text textSpy = spy(text);
         final List<Sentence> sentences = text.read(PATH_TO_FILE);
 
         textSpy.write(PATH_TO_FILE, sentences);
-        verify(consoleController, never()).printRevert(sentences);
+        verify(console, never()).printRevert(sentences);
     }
 }
