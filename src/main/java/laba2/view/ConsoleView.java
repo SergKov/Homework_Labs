@@ -2,7 +2,6 @@ package laba2.view;
 
 import laba2.Sentence;
 
-import java.io.IOException;
 import java.util.List;
 
 /**

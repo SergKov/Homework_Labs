@@ -112,11 +112,11 @@ public class RedBlackTreeTest {
     @Test
     public void requireSizeAfterManyPut() {
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 200; i++) {
             redBlackTree.put("A" + i, i);
         }
 
-        final int expected = 100;
+        final int expected = 200;
         final int result = redBlackTree.size();
 
         assertEquals(expected, result);

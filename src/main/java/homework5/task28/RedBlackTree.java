@@ -1,6 +1,7 @@
 package homework5.task28;
 
 import java.util.Comparator;
+import java.util.TreeMap;
 
 /**
  * Created by koval on 13.12.2016.
@@ -32,7 +33,7 @@ public class RedBlackTree<K, V> {
 
         Node<K, V> node = root;
         Node<K, V> parent = null;
-        V prevElem = null;
+        V prevElem;
 
         while (node != null) {
 
@@ -49,8 +50,7 @@ public class RedBlackTree<K, V> {
                     node = node.left;
                 } else {
                     node.left = new Node<>(key, value, node);
-                    leftOf(node).color = RED;
-                    insert(node);
+                    insert(node.left);
                     size++;
                     return null;
                 }
@@ -62,8 +62,7 @@ public class RedBlackTree<K, V> {
                     node = node.right;
                 } else {
                     node.right = new Node<>(key, value, node);
-                    rightOf(node).color = RED;
-                    insert(node);
+                    insert(node.right);
                     size++;
                     return null;
                 }
@@ -71,123 +70,119 @@ public class RedBlackTree<K, V> {
         }
 
         final int cmp = compare(key, parent.key);
-
+        final Node<K, V> insertNode = new Node<>(key, value, parent);
         if (cmp < 0) {
-            parent.left = new Node<>(key, value, parent);
-            leftOf(parent).color = RED;
-            insert(parent);
+            parent.left = insertNode;
         } else {
-            parent.right = new Node<>(key, value, parent);
-            rightOf(parent).color = RED;
-            insert(parent);
+            parent.right = insertNode;
         }
+        insert(insertNode);
         size++;
-        return prevElem;
+        return null;
     }
 
     private void insert(Node<K, V> node) {
 
         node.color = RED;
 
-        while (node != null && node.parent != null && node.parent.color == RED) {
+        while (node != null && node != root && node.parent.color == RED) {
 
-            if (parentOf(node) == leftOf(grandparentOf(node))) {
+            if (node.parent == node.parent.parent.left) {
 
-                final Node<K, V> rightGrantParentNode = rightOf(grandparentOf(node));
+                final Node<K, V> rightGrantParentNode = node.parent.parent.right;
 
-                if (isRed(rightGrantParentNode)) {
-                    parentOf(node).color = BLACK;
-                    rightGrantParentNode.color = BLACK;
-                    grandparentOf(node).color = RED;
-                    node = grandparentOf(node);
+                if (colorOf(rightGrantParentNode) == RED) {
+                    setColor(node.parent, BLACK);
+                    setColor(rightGrantParentNode, BLACK);
+                    setColor(node.parent.parent, RED);
+                    node = node.parent.parent;
                 } else {
 
-                    if (node == rightOf(parentOf(node))) {
-                        node = parentOf(node);
+                    if (node == node.parent.right) {
+                        node = node.parent;
                         leftRotate(node);
                     }
 
-                    parentOf(node).color = BLACK;
-                    grandparentOf(node).color = RED;
+                    setColor(node.parent, BLACK);
+                    node.parent.parent.color = RED;
                     rightRotate(node);
                 }
 
             } else {
 
-                final Node<K, V> leftGrantParentNode = leftOf(grandparentOf(node));
-                if (isRed(leftGrantParentNode)) {
-                    parentOf(node).color = BLACK;
-                    leftGrantParentNode.color = BLACK;
-                    grandparentOf(node).color = RED;
-                    node = grandparentOf(node);
+                final Node<K, V> leftGrantParentNode = node.parent.parent.left;
+                if (colorOf(node) == RED) {
+                    setColor(node.parent, BLACK);
+                    setColor(leftGrantParentNode, BLACK);
+                    setColor(node.parent.parent, RED);
+                    node = node.parent.parent;
                 } else {
-
-                    if (node == leftOf(parentOf(node))) {
-                        node = parentOf(node);
+                    if (node == node.parent.left) {
+                        node = node.parent;
                         rightRotate(node);
                     }
-
-                    parentOf(node).color = BLACK;
-                    grandparentOf(node).color = RED;
-                    leftRotate(node);
+                    setColor(node.parent, BLACK);
+                    setColor(node.parent.parent, RED);
+                    leftRotate(node.parent.parent);
                 }
             }
         }
+
         root.color = BLACK;
     }
 
     private void leftRotate(final Node<K, V> node) {
 
-        final Node<K, V> rightNode = rightOf(node);
-        node.right = leftOf(rightNode);
+        if (node != null && node.right != null) {
 
-        if (leftOf(rightNode) != null) {
-            leftOf(rightNode).parent = node;
-        }
+            final Node<K, V> rightNode = node.right;
+            node.right = rightNode.left;
 
-        if (rightOf(node) != null) {
-            rightOf(node).parent = rightOf(node);
-        }
+            if (rightNode.left != null) {
+                rightNode.left.parent = node;
+            }
 
-        if (node.parent == null) {
-            root = rightNode;
-        } else if (node.parent.left == node) {
-            parentOf(node).left = rightNode;
-        } else {
-            parentOf(node).right = rightNode;
-        }
+            rightNode.parent = node.parent;
 
-        if (rightNode != null) {
+            if (node.parent == null) {
+                root = rightNode;
+            } else if (node.parent.left == node) {
+                node.parent.left = rightNode;
+            } else {
+                node.parent.right = rightNode;
+            }
+
             rightNode.left = node;
             node.parent = rightNode;
+
         }
     }
 
     private void rightRotate(final Node<K, V> node) {
 
-        final Node<K, V> leftNode = leftOf(node);
-        node.left = rightOf(leftNode);
+        if (node != null && node.left != null) {
 
-        if (rightOf(leftNode) != null) {
-            rightOf(leftNode).parent = node;
-        }
+            final Node<K, V> leftNode = node.left;
+            node.left = leftNode.right;
 
-        if (rightOf(node) != null) {
-            rightOf(node).parent = rightOf(node);
-        }
+            if (leftNode.right != null) {
+                leftNode.right.parent = node;
+            }
 
-        if (node.parent == null) {
-            root = leftNode;
-        } else if (leftNode != null && leftNode.parent != null && parentOf(node).right == leftNode) {
-            leftNode.parent.right = node;
-        } else {
-            node.parent.left = leftNode;
-        }
+            leftNode.parent = node.right;
 
-        if (leftNode != null) {
+            if (node.parent == null) {
+                root = leftNode;
+            } else if (leftNode.parent != null && node.parent.right == leftNode) {
+                node.parent.right = node;
+            } else {
+                node.parent.left = leftNode;
+            }
+
             leftNode.right = node;
             node.parent = leftNode;
         }
+
     }
 
     public V get(final K key) {
@@ -201,9 +196,9 @@ public class RedBlackTree<K, V> {
             final int cmp = compare(key, node.key);
 
             if (cmp < 0) {
-                node = leftOf(node);
+                node = node.left;
             } else if (cmp > 0) {
-                node = rightOf(node);
+                node = node.right;
             } else {
                 return node.value;
             }
@@ -228,29 +223,19 @@ public class RedBlackTree<K, V> {
         return size;
     }
 
-    private boolean isRed(final Node node) {
-        return node != null && node.color == RED;
-    }
-
-    private Node parentOf(final Node<K, V> node) {
-        return node == null ? null : node.parent;
-    }
-
-    private Node grandparentOf(final Node<K, V> node) {
-        return (node == null || node.parent == null) ? null : node.parent.parent;
-    }
-
-    private Node leftOf(final Node<K, V> node) {
-        return node == null ? null : node.left;
-    }
-
-    private Node rightOf(final Node<K, V> node) {
-        return node == null ? null : node.right;
-    }
-
     private V putRoot(final K key, final V value) {
         root = new Node<>(key, value, null);
         return null;
+    }
+
+    private boolean colorOf(final Node<K,V> node) {
+        return (node == null ? BLACK : node.color);
+    }
+
+    private void setColor(final Node<K,V> node, final boolean color) {
+        if (node != null) {
+            node.color = color;
+        }
     }
 
     private static class Node<K, V> {

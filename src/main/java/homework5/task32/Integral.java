@@ -1,5 +1,6 @@
 package homework5.task32;
 
+import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -23,16 +24,16 @@ public class Integral {
         return function.apply(point);
     }
 
-    public Double calculate(final int N) {
+    public Double calculate(final Double a, final Double b) {
 
-        final double h = (b - a) / N;
         double sum = (getValue(a) + getValue(b)) * (b - a) / 2;
 
-        for (int i = 1; i < N; i++) {
-            double x = a + h * i;
-            sum += getValue(x);
+        if (b - a < EPS) {
+            sum += calculate(a, b / 2);
+            sum += calculate(b / 2, b);
         }
-        return sum * h;
+
+        return sum;
     }
 
     public class Calculator implements Runnable {
@@ -45,12 +46,12 @@ public class Integral {
 
         @Override
         public void run() {
-            calculate(count);
+
         }
     }
 
     public static void main(String[] args) {
-        final Integral integral = new Integral(0, Math.PI, Math::sin);
-        System.out.println(integral.calculate(12));
+        final Integral integral = new Integral(0D, Math.PI, Math::sin);
+        System.out.println(integral.calculate(0D, Math.PI));
     }
 }
