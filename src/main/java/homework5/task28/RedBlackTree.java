@@ -210,6 +210,7 @@ public class RedBlackTree<K, V> {
     }
 
     private void deleteNode(Node<K,V> node) {
+
         size--;
 
         if (node.left != null && node.right != null) {

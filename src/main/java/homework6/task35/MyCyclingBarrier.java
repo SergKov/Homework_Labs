@@ -26,8 +26,9 @@ public class MyCyclingBarrier {
 
     public synchronized void await() {
 
+        --count;
+
         while (count > 0) {
-            --count;
             try {
                 wait();
             } catch (final InterruptedException e) { }
