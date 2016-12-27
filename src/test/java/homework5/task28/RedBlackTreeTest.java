@@ -2,6 +2,7 @@ package homework5.task28;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -112,13 +113,67 @@ public class RedBlackTreeTest {
     @Test
     public void requireSizeAfterManyPut() {
 
-        for (int i = 0; i < 200; i++) {
+        for (int i = 0; i < 1_000; i++) {
             redBlackTree.put("A" + i, i);
         }
 
-        final int expected = 200;
+        final int expected = 1_000;
         final int result = redBlackTree.size();
 
         assertEquals(expected, result);
     }
+
+    @Test
+    public void requireResultAfterPutRemoveWithTheSameKeys() {
+
+        redBlackTree.put("A", 23);
+
+        final int expected = 23;
+        final int result = redBlackTree.remove("A");
+
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void requireSizeAfterPutRemoveWithDifferentKeys() {
+
+        redBlackTree.put("A", 250);
+        redBlackTree.remove("B");
+
+        final int expected = 1;
+        final int result = redBlackTree.size();
+
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void requireSizeAfterPutRemoveWithTheSameKeys() {
+
+        final String KEY = "A";
+
+        redBlackTree.put(KEY, 1023);
+        redBlackTree.remove(KEY);
+
+        final int expected = 0;
+        final int result = redBlackTree.size();
+
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void requireSizeAfterManyPutAndRemove() {
+
+        for (int i = 0; i < 1_000; i++) {
+            redBlackTree.put("A" + i, i);
+        }
+
+        redBlackTree.remove("A" + 999);
+
+        final int expected = 999;
+        final int result = redBlackTree.size();
+
+        Assert.assertEquals(expected, result);
+    }
+
+
 }
