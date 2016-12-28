@@ -3,8 +3,6 @@ package homework5.task31;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.IllegalFormatCodePointException;
-
 /**
  * Created by koval on 27.12.2016.
  */
@@ -13,7 +11,7 @@ public class MatrixTest {
     @Test
     public void requireResultWithTwoToTwoMatrices() throws InterruptedException {
 
-        final MultiplyMatrix matrix = new MultiplyMatrix(4, new double[][]{{1, 1}, {1, 1}},
+        final MultiplyMatrix matrix = new MultiplyMatrix(2, new double[][]{{1, 1}, {1, 1}},
                 new double[][] {{1, 1}, {1, 1}});
 
         final double[][] expected = {{2, 2}, {2, 2}};
@@ -25,7 +23,7 @@ public class MatrixTest {
     @Test
     public void requireResultWithThreeToThreeMatrices() throws InterruptedException {
 
-        final MultiplyMatrix matrix = new MultiplyMatrix(9, new double[][]{{1, 2, 3}, {3, 2, 1}, {0, 1, 2}},
+        final MultiplyMatrix matrix = new MultiplyMatrix(3, new double[][]{{1, 2, 3}, {3, 2, 1}, {0, 1, 2}},
                 new double[][] {{0, 1, 2}, {1, 0, 5}, {3, 7, 2}});
 
         final double[][] expected = {{11, 22, 18}, {5, 10, 18}, {7, 14, 9}};
@@ -37,7 +35,7 @@ public class MatrixTest {
     @Test(expected = IllegalArgumentException.class)
     public void requireExceptionWithIllegalParameters() {
 
-        final MultiplyMatrix matrix = new MultiplyMatrix(6, new double[][]{{1, 1}, {1, 1}},
+        final MultiplyMatrix matrix = new MultiplyMatrix(3, new double[][]{{1, 1}, {1, 1}},
                 new double[][] {{1, 1}, {1, 1}, {1, 1}});
     }
 }

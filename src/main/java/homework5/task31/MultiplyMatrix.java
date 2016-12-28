@@ -38,12 +38,10 @@ public class MultiplyMatrix {
         int threadscount = 0;
 
         for (int row = 0; row < first.length; row++) {
-            for (int col = 0; col < second[row].length; col++) {
-                threads[threadscount] = new Thread(new MultiplyThread(row, col, first, second, result));
-                threads[threadscount].start();
-                threads[threadscount].join();
-                threadscount++;
-            }
+            threads[threadscount] = new Thread(new MultiplyThread(row, first, second, result));
+            threads[threadscount].start();
+            threads[threadscount].join();
+            threadscount++;
         }
 
         return result;
