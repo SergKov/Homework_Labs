@@ -1,8 +1,4 @@
-package homework6.task35;
-
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.locks.ReentrantLock;
+package homework6.task36;
 
 /**
  * Created by koval on 25.12.2016.

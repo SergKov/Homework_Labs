@@ -40,13 +40,16 @@ public class HashTable<K, V> {
     }
 
     private V removeEntry(final K key) {
+
         for (int i = 0; i < table.length; i++) {
+
             if (table[i] != null) {
                 Entry<K, V> entry = table[i];
                 Entry<K, V> entryPrev = null;
+
                 while (entry != null) {
 
-                    Entry<K, V> entryNext = entry.next;
+                    final Entry<K, V> entryNext = entry.next;
 
                     if (entry.key.equals(key)) {
                         if (entryPrev != null) {
@@ -66,9 +69,12 @@ public class HashTable<K, V> {
     }
 
     private Entry<K, V> findEntry(final K key) {
+
         for (int i = 0; i < table.length; i++) {
+
             if (table[i] != null) {
                 Entry<K, V> entry = table[i];
+
                 while (entry != null) {
 
                     if (entry.key.equals(key)) {
