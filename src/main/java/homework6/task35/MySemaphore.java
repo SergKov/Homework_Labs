@@ -21,7 +21,7 @@ public class MySemaphore {
     }
 
     public synchronized void release() throws InterruptedException {
-        while (bound == 0) {
+        while (signals == 0) {
             this.wait();
         }
         signals--;
