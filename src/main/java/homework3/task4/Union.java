@@ -19,6 +19,7 @@ public class Union<T> {
         this.second = second;
     }
 
+    @SuppressWarnings("unchecked")
     public List<T> getUnion(final List<? extends T> dst, final List<? extends T> src,
                                     final Comparator<? super T> comparator) {
 

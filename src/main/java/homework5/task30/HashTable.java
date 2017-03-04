@@ -16,6 +16,7 @@ public class HashTable<K, V> {
     private int threshold;
     private Entry<K, V>[] table;
 
+    @SuppressWarnings("unchecked")
     public HashTable() {
         table = new Entry[DEFAULT_INITIAL_CAPACITY];
         this.capacity = DEFAULT_INITIAL_CAPACITY;
@@ -48,7 +49,6 @@ public class HashTable<K, V> {
                 Entry<K, V> entryPrev = null;
 
                 while (entry != null) {
-
                     final Entry<K, V> entryNext = entry.next;
 
                     if (entry.key.equals(key)) {
@@ -69,14 +69,11 @@ public class HashTable<K, V> {
     }
 
     private Entry<K, V> findEntry(final K key) {
-
         for (int i = 0; i < table.length; i++) {
-
             if (table[i] != null) {
                 Entry<K, V> entry = table[i];
 
                 while (entry != null) {
-
                     if (entry.key.equals(key)) {
                         return entry;
                     }
@@ -90,7 +87,7 @@ public class HashTable<K, V> {
     private V putToHashTable(final K key, final V value, final Entry<K, V>[] table) {
 
         if (key == null) {
-            return putNullKey(key, value, table);
+            return putNullKey(value, table);
         }
 
         final int positionToInsert = Math.abs(key.hashCode() % table.length);
@@ -125,10 +122,8 @@ public class HashTable<K, V> {
         return null;
     }
 
-    private V putNullKey(final K key, final V value, final Entry<K, V>[] table) {
-
+    private V putNullKey(final V value, final Entry<K, V>[] table) {
         if (table[0] != null) {
-
             Entry<K, V> entry = table[0];
             V prev = null;
             Entry<K, V> prevNode = null;
@@ -143,17 +138,18 @@ public class HashTable<K, V> {
                 entry = entry.next;
             }
 
-            prevNode.next = new Entry<>(0, key, value, null);
+            prevNode.next = new Entry<>(0, null, value, null);
             size++;
             return prev;
         }
 
-        table[0] = new Entry<>(0, key, value, null);
+        table[0] = new Entry<>(0, null, value, null);
         size++;
         return null;
 
     }
 
+    @SuppressWarnings("unchecked")
     private void resizeTable() {
         size = 0;
         capacity *= 2;
@@ -169,7 +165,6 @@ public class HashTable<K, V> {
                 }
             }
         });
-
         this.table = newTable;
     }
 

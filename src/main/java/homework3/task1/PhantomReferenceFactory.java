@@ -16,11 +16,9 @@ public class PhantomReferenceFactory {
     private static PhantomReferenceFactory factory;
 
     public static PhantomReferenceFactory getInstance(final int limit) {
-
         if (factory == null) {
             return new PhantomReferenceFactory(limit);
         }
-
         return factory;
     }
 
@@ -50,14 +48,11 @@ public class PhantomReferenceFactory {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private PhantomReference initPhantomReference(final Object obj) {
         final PhantomReference phantomRef = new PhantomReference(obj, queue);
         count++;
         return phantomRef;
-    }
-
-    public int getCount() {
-        return count;
     }
 
     public ReferenceQueue getReferenceQueue() {

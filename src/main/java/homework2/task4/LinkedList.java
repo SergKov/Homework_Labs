@@ -13,8 +13,7 @@ public class LinkedList<E> implements Iterable<E> {
     private Node<E> last;
     private int size;
 
-    public LinkedList() {
-    }
+    public LinkedList() { }
 
     public LinkedList(Collection<E> c) {
         addAll(c);
@@ -38,7 +37,6 @@ public class LinkedList<E> implements Iterable<E> {
     }
 
     public void add(final int index, final E elem) {
-
         checkIndexIsInBoundsIsEqualsToSize(index);
 
         if (index == 0) {
@@ -169,7 +167,6 @@ public class LinkedList<E> implements Iterable<E> {
             index++;
             temp = temp.next;
         }
-
         return lastPos;
     }
 

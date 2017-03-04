@@ -32,35 +32,28 @@ public class QuickSort {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static <E> int partition(final List<E> list, int left, int right,
                                                                    final Comparator<? super E> comparator) {
 
         final int middle = (left + right) / 2;
-
         final E pivot = list.get(middle);
 
         while (left <= right) {
-
             if (comparator != null) {
-
                 while (comparator.compare(list.get(left), pivot) < 0) {
                     left++;
                 }
-
                 while (comparator.compare(list.get(right), pivot) > 0) {
                     right--;
                 }
-
             } else {
-
                 while (((Comparable<? super E>)list.get(left)).compareTo(pivot) < 0) {
                     left++;
                 }
-
                 while (((Comparable<? super E>)list.get(right)).compareTo(pivot) > 0) {
                     right--;
                 }
-
             }
 
             if (left <= right) {
@@ -68,9 +61,7 @@ public class QuickSort {
                 left++;
                 right--;
             }
-
         }
-
         return left;
     }
 

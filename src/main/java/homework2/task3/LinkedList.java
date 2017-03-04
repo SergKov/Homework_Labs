@@ -32,7 +32,6 @@ public class LinkedList<E> implements Iterable<E> {
     }
 
     public E get(final int index) {
-
         checkPositionIndex(index);
 
         if (index == 0) {
@@ -63,7 +62,6 @@ public class LinkedList<E> implements Iterable<E> {
     }
 
     public boolean add(final int index, final E elem) {
-
         checkPositionIndex(index);
 
         if (index == size - 1) {
@@ -143,11 +141,9 @@ public class LinkedList<E> implements Iterable<E> {
     }
 
     private boolean containsValue(final E value, final Node<E> current) {
-
         if (current == null) {
             return false;
         }
-
         return current.value.equals(value) || containsValue(value, current.next);
     }
 

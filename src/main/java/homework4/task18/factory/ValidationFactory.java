@@ -1,7 +1,6 @@
 package homework4.task18.factory;
 
 import org.apache.log4j.Logger;
-import sun.rmi.runtime.Log;
 
 /**
  * Created by koval on 20.11.2016.

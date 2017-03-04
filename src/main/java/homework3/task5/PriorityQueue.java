@@ -16,11 +16,13 @@ public class PriorityQueue<E> implements Iterable<E> {
     private int numberOfItems;
     private Comparator<E> comparator;
 
+    @SuppressWarnings("unchecked")
     public PriorityQueue() {
         queue = (E[]) new Comparable[DEFAULT_INITIAL_CAPACITY];
         numberOfItems = 0;
     }
 
+    @SuppressWarnings("unchecked")
     public PriorityQueue(int capacity) {
         validate(capacity);
         this.numberOfItems = capacity;
@@ -31,6 +33,7 @@ public class PriorityQueue<E> implements Iterable<E> {
         this(DEFAULT_INITIAL_CAPACITY, comparator);
     }
 
+    @SuppressWarnings("unchecked")
     public PriorityQueue(int capacity, Comparator<E> comparator) {
         validate(capacity);
         this.comparator = comparator;
@@ -74,6 +77,7 @@ public class PriorityQueue<E> implements Iterable<E> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private boolean greater(final int i, final int j) {
         if (comparator == null) {
             return ((Comparable<E>)queue[i]).compareTo(queue[j]) > 0;
@@ -102,9 +106,7 @@ public class PriorityQueue<E> implements Iterable<E> {
     }
 
     private void sink(int sang) {
-
         while (2 * sang <= numberOfItems) {
-
             int index = 2 * sang;
 
             if (index < numberOfItems && greater(index, index + 1)) {
@@ -124,6 +126,7 @@ public class PriorityQueue<E> implements Iterable<E> {
         return numberOfItems > 0 ? queue[1] : null;
     }
 
+    @SuppressWarnings("unchecked")
     public boolean contains(final E e) {
         if (queue.length > 1) {
             if (comparator == null) {
@@ -156,6 +159,7 @@ public class PriorityQueue<E> implements Iterable<E> {
             }
 
             @Override
+            @SuppressWarnings("unchecked")
             public E next() {
                 if (count > numberOfItems) {
                     throw new NoSuchElementException(" Size : " + numberOfItems);
