@@ -156,7 +156,7 @@ public class RedBlackTree<K extends Comparable<K>, V> {
             if (cmp < 0) {
                 temp = temp.left;
             } else if (cmp > 0) {
-                temp = temp.left;
+                temp = temp.right;
             } else {
                 return temp;
             }

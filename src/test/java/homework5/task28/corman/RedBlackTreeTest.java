@@ -117,20 +117,32 @@ public class RedBlackTreeTest {
     }
 
     @Test
+    public void requireSizeAfterManyPutAndRemove() {
+        for (int i = 0; i < COUNT_PUT; i++) {
+            redBlackTree.put("A" + i, i);
+        }
+
+        redBlackTree.remove("A" + 1);
+        redBlackTree.remove("A" + 100);
+        redBlackTree.remove("A" + 1_000);
+
+        final int expected = COUNT_PUT - 3;
+        final int result = redBlackTree.size();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     public void requireTreeBalance() {
         for (int i = 0; i < 1_000; i++) {
             redBlackTree.put("A" + i, i);
         }
 
-        System.out.println(redBlackTree.size());
-
         final int height = redBlackTree.getHeight();
-        System.out.println(height);
         final int calculateLog = (int) (Math.log(redBlackTree.size()) / Math.log(2.));
         final int expectedMaxHeight = 2 * (calculateLog + 1);
-        System.out.println(expectedMaxHeight);
 
-//        assertTrue(height <= expectedMaxHeight);
+        assertTrue(height <= expectedMaxHeight);
     }
 
     @Test
