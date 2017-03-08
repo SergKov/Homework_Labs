@@ -5,9 +5,9 @@ package homework6.task37;
  */
 public class Worker extends Thread {
 
-    private final BlockingQueue<Runnable> tasks;
+    private final RunnableQueue<Runnable> tasks;
 
-    public Worker(BlockingQueue<Runnable> tasks) {
+    public Worker(RunnableQueue<Runnable> tasks) {
         this.tasks = tasks;
         this.setDaemon(true);
     }

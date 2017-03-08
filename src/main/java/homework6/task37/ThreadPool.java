@@ -8,12 +8,12 @@ import java.util.List;
  */
 public class ThreadPool {
 
-    private final BlockingQueue<Runnable> taskQueue;
+    private final RunnableQueue<Runnable> taskQueue;
     private final List<Thread> threads = new ArrayList<>();
 
     public ThreadPool(int max){
 
-        taskQueue = new BlockingQueue(max);
+        taskQueue = new RunnableQueue(max);
 
         for (int i = 0; i < max; i++) {
             threads.add(new Worker(taskQueue));

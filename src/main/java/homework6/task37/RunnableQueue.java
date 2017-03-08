@@ -6,12 +6,12 @@ import java.util.Queue;
 /**
  * Created by koval on 07.03.2017.
  */
-public class BlockingQueue<E> {
+public class RunnableQueue<E> {
 
     private final Queue<E> queue = new LinkedList<E>();
     private final int limit;
 
-    public BlockingQueue(int limit) {
+    public RunnableQueue(int limit) {
         this.limit = limit;
     }
 
