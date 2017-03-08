@@ -11,11 +11,11 @@ public class ThreadPool {
     private final BlockingQueue<Runnable> taskQueue;
     private final List<Thread> threads = new ArrayList<>();
 
-    public ThreadPool(int workThread, int max){
+    public ThreadPool(int max){
 
         taskQueue = new BlockingQueue(max);
 
-        for (int i = 0; i < workThread; i++) {
+        for (int i = 0; i < max; i++) {
             threads.add(new Worker(taskQueue));
         }
 
@@ -25,12 +25,6 @@ public class ThreadPool {
     public void execute(final Runnable task) throws InterruptedException {
         synchronized (taskQueue) {
             taskQueue.enqueue(task);
-        }
-    }
-
-    public void addWorker() {
-        synchronized (threads) {
-            threads.add(new Worker(taskQueue));
         }
     }
 }
