@@ -9,6 +9,7 @@ public class Worker extends Thread {
 
     public Worker(BlockingQueue<Runnable> tasks) {
         this.tasks = tasks;
+        this.setDaemon(true);
     }
 
     @Override
