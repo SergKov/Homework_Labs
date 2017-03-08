@@ -40,4 +40,10 @@ public class RunnableQueue<E> {
             return queue.remove();
         }
     }
+
+    public boolean isEmpty() {
+        synchronized (queue) {
+            return queue.isEmpty();
+        }
+    }
 }

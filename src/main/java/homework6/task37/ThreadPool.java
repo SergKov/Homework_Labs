@@ -11,20 +11,28 @@ public class ThreadPool {
     private final RunnableQueue<Runnable> taskQueue;
     private final List<Thread> threads = new ArrayList<>();
 
-    public ThreadPool(int max){
+    private volatile boolean isClosed = true;
 
-        taskQueue = new RunnableQueue(max);
+    public ThreadPool(int maxThreads) {
 
-        for (int i = 0; i < max; i++) {
-            threads.add(new Worker(taskQueue));
+        taskQueue = new RunnableQueue(maxThreads);
+
+        for (int i = 0; i < maxThreads; i++) {
+            threads.add(new Worker(taskQueue, this));
         }
 
         threads.forEach(Thread::start);
     }
 
     public void execute(final Runnable task) throws InterruptedException {
-        synchronized (taskQueue) {
-            taskQueue.enqueue(task);
-        }
+        taskQueue.enqueue(task);
+    }
+
+    public void setClosed(boolean closed) {
+        isClosed = closed;
+    }
+
+    public boolean isClosed() {
+        return isClosed;
     }
 }

@@ -18,6 +18,7 @@ public class ThreadPoolTest {
             final int k = i;
             threadPool.execute(() -> System.out.println(k));
         }
+        threadPool.setClosed(true);
     }
 
 }

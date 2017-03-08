@@ -8,6 +8,10 @@ public class AvlTree<K extends Comparable<? super K>, V> {
     private Entry<K, V> root;
     private int size;
 
+    public void add(final K key) {
+
+    }
+
     public V get(final K key) {
         if (root == null) {
             return null;
@@ -17,10 +21,14 @@ public class AvlTree<K extends Comparable<? super K>, V> {
     }
 
     private V getValue(final Entry<K, V> entry, final K key) {
+        if (entry == null) {
+            return null;
+        }
 
-        if (key.compareTo(entry.key) > 0) {
+        final int cmp = key.compareTo(entry.key);
+        if (cmp > 0) {
             return getValue(entry.right, entry.right.key);
-        } else if (key.compareTo(entry.key) < 0) {
+        } else if (cmp < 0) {
             return getValue(entry.left, entry.left.key);
         } else {
             return entry.value;

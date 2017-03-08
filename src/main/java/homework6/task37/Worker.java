@@ -6,15 +6,16 @@ package homework6.task37;
 public class Worker extends Thread {
 
     private final RunnableQueue<Runnable> tasks;
+    private final ThreadPool threadPool;
 
-    public Worker(RunnableQueue<Runnable> tasks) {
+    public Worker(RunnableQueue<Runnable> tasks, ThreadPool threadPool) {
         this.tasks = tasks;
-        this.setDaemon(true);
+        this.threadPool = threadPool;
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (threadPool.isClosed()) {
             try {
                 final Runnable runnable = tasks.dequeue();
                 runnable.run();
