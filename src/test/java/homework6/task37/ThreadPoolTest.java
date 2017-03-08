@@ -15,7 +15,7 @@ public class ThreadPoolTest {
 
     private final BlockingQueue blockingQueue = new BlockingQueue(5);
 
-    private final ThreadPool threadPool = new ThreadPool(3, 5);
+    private final ThreadPool threadPool = new ThreadPool(5);
 
     @Test
     public void testExecute() throws Exception {
