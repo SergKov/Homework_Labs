@@ -352,7 +352,6 @@ public class RedBlackTree<K, V> {
         int cmp;
 
         while (node != null) {
-
             cmp = compare(key, node.key);
 
             if (cmp < 0) {

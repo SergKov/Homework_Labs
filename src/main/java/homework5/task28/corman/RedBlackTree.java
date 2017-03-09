@@ -10,147 +10,147 @@ public class RedBlackTree<K extends Comparable<K>, V> {
     private static final boolean RED = true;
     private static final boolean BLACK = false;
 
-    private Node root;
-    private final Node nil;
+    private Entry root;
+    private final Entry nil;
     private int size;
 
     @SuppressWarnings("unchecked")
     public RedBlackTree() {
-        nil = new Node(null, null);
+        nil = new Entry(null, null);
         nil.parent = nil.left = nil.right = nil;
         nil.color = BLACK;
         root = nil;
     }
 
     public V put(final K key, final V value) {
-        final Node<K, V> newNode = new Node<>(key, value);
-        return insert(newNode);
+        final Entry<K, V> newEntry = new Entry<>(key, value);
+        return insert(newEntry);
     }
 
     @Nullable
-    private V insert(final Node<K, V> newNode) {
-        Node<K, V> tempRoot = root;
-        Node<K, V> tempParent = nil;
+    private V insert(final Entry<K, V> newEntry) {
+        Entry<K, V> tempRoot = root;
+        Entry<K, V> tempParent = nil;
 
         while (tempRoot != nil) {
             tempParent = tempRoot;
-            final int cmp = newNode.key.compareTo(tempRoot.key);
+            final int cmp = newEntry.key.compareTo(tempRoot.key);
             if (cmp < 0) {
                 tempRoot = tempRoot.left;
             } else if (cmp > 0) {
                 tempRoot = tempRoot.right;
             } else {
                 final V oldValue = tempRoot.value;
-                tempRoot.value = newNode.value;
+                tempRoot.value = newEntry.value;
                 return oldValue;
             }
         }
-        newNode.parent = tempParent;
+        newEntry.parent = tempParent;
 
         if (tempParent == nil) {
-            root = newNode;
+            root = newEntry;
         } else {
-            if (newNode.key.compareTo(tempParent.key) < 0) {
-                tempParent.left = newNode;
+            if (newEntry.key.compareTo(tempParent.key) < 0) {
+                tempParent.left = newEntry;
             } else {
-                tempParent.right = newNode;
+                tempParent.right = newEntry;
             }
         }
-        newNode.left = nil;
-        newNode.right = nil;
-        newNode.color = RED;
-        insertFixup(newNode);
+        newEntry.left = nil;
+        newEntry.right = nil;
+        newEntry.color = RED;
+        insertFixup(newEntry);
         size++;
         return null;
     }
 
-    private void insertFixup(Node<K, V> newNode) {
-        while (newNode.parent.color == RED) {
-            if (newNode.parent == newNode.parent.parent.left) {
-                final Node<K, V> temp = newNode.parent.parent.right;
+    private void insertFixup(Entry<K, V> newEntry) {
+        while (newEntry.parent.color == RED) {
+            if (newEntry.parent == newEntry.parent.parent.left) {
+                final Entry<K, V> temp = newEntry.parent.parent.right;
                 if (temp.color == RED) {
-                    newNode.parent.color = BLACK;
+                    newEntry.parent.color = BLACK;
                     temp.color = BLACK;
-                    newNode.parent.parent.color = RED;
-                    newNode = newNode.parent.parent;
+                    newEntry.parent.parent.color = RED;
+                    newEntry = newEntry.parent.parent;
                 } else {
-                    if (newNode == newNode.parent.right) {
-                        newNode = newNode.parent;
-                        leftRotate(newNode);
+                    if (newEntry == newEntry.parent.right) {
+                        newEntry = newEntry.parent;
+                        leftRotate(newEntry);
                     }
-                    newNode.parent.color = BLACK;
-                    newNode.parent.parent.color = RED;
-                    rightRotate(newNode.parent.parent);
+                    newEntry.parent.color = BLACK;
+                    newEntry.parent.parent.color = RED;
+                    rightRotate(newEntry.parent.parent);
                 }
             } else {
-                final Node<K, V> temp = newNode.parent.parent.left;
+                final Entry<K, V> temp = newEntry.parent.parent.left;
                 if (temp.color == RED) {
-                    newNode.parent.color = BLACK;
+                    newEntry.parent.color = BLACK;
                     temp.color = BLACK;
-                    newNode.parent.parent.color = RED;
-                    newNode = newNode.parent.parent;
+                    newEntry.parent.parent.color = RED;
+                    newEntry = newEntry.parent.parent;
                 } else {
-                    if (newNode == newNode.parent.left) {
-                        newNode = newNode.parent;
-                        rightRotate(newNode);
+                    if (newEntry == newEntry.parent.left) {
+                        newEntry = newEntry.parent;
+                        rightRotate(newEntry);
                     }
-                    newNode.parent.color = BLACK;
-                    newNode.parent.parent.color = RED;
-                    leftRotate(newNode.parent.parent);
+                    newEntry.parent.color = BLACK;
+                    newEntry.parent.parent.color = RED;
+                    leftRotate(newEntry.parent.parent);
                 }
             }
         }
         root.color = BLACK;
     }
 
-    private void leftRotate(final Node<K, V> node) {
-        final Node<K, V> temp = node.right;
-        node.right = temp.left;
+    private void leftRotate(final Entry<K, V> entry) {
+        final Entry<K, V> temp = entry.right;
+        entry.right = temp.left;
 
         if (temp.left != nil) {
-            temp.left.parent = node;
+            temp.left.parent = entry;
         }
-        temp.parent = node.parent;
+        temp.parent = entry.parent;
 
-        if (node.parent == nil) {
+        if (entry.parent == nil) {
             root = temp;
-        } else if (node == node.parent.left) {
-            node.parent.left = temp;
+        } else if (entry == entry.parent.left) {
+            entry.parent.left = temp;
         } else {
-            node.parent.right = temp;
+            entry.parent.right = temp;
         }
-        temp.left = node;
-        node.parent = temp;
+        temp.left = entry;
+        entry.parent = temp;
     }
 
-    private void rightRotate(final Node<K, V> node) {
-        final Node<K, V> temp = node.left;
-        node.left = temp.right;
+    private void rightRotate(final Entry<K, V> entry) {
+        final Entry<K, V> temp = entry.left;
+        entry.left = temp.right;
 
         if (temp.right != nil) {
-            temp.right.parent = node;
+            temp.right.parent = entry;
         }
-        temp.parent = node.parent;
+        temp.parent = entry.parent;
 
-        if (node.parent == nil) {
+        if (entry.parent == nil) {
             root = temp;
-        } else if (node.parent.right == node) {
-            node.parent.right = temp;
+        } else if (entry.parent.right == entry) {
+            entry.parent.right = temp;
         } else {
-            node.parent.left = temp;
+            entry.parent.left = temp;
         }
-        temp.right = node;
-        node.parent = temp;
+        temp.right = entry;
+        entry.parent = temp;
     }
 
     public V get(final K key) {
-        final Node<K, V> searchNode = search(key);
-        return searchNode != null ? searchNode.value : null;
+        final Entry<K, V> searchEntry = search(key);
+        return searchEntry != null ? searchEntry.value : null;
     }
 
     @Nullable
-    private Node<K, V> search(final K key) {
-        Node<K, V> temp = root;
+    private Entry<K, V> search(final K key) {
+        Entry<K, V> temp = root;
         while (temp != nil) {
             final int cmp = key.compareTo(temp.key);
             if (cmp < 0) {
@@ -166,117 +166,117 @@ public class RedBlackTree<K extends Comparable<K>, V> {
 
     @Nullable
     public V remove(final K key) {
-        final Node<K, V> oldNode = search(key);
-        return oldNode != null ? delete(oldNode) : null;
+        final Entry<K, V> oldEntry = search(key);
+        return oldEntry != null ? delete(oldEntry) : null;
     }
 
-    private V delete(Node<K, V> oldNode) {
-        Node<K, V> deleteNode = oldNode;
-        Node<K, V> temp;
+    private V delete(Entry<K, V> oldEntry) {
+        Entry<K, V> deleteEntry = oldEntry;
+        Entry<K, V> temp;
 
-        boolean deleteOriginalColor = deleteNode.color;
-        if (oldNode.left == nil) {
-            temp = oldNode.right;
-            transplant(oldNode, oldNode.right);
-        } else if (oldNode.right == nil) {
-            temp = oldNode.left;
-            transplant(oldNode, oldNode.left);
+        boolean deleteOriginalColor = deleteEntry.color;
+        if (oldEntry.left == nil) {
+            temp = oldEntry.right;
+            transplant(oldEntry, oldEntry.right);
+        } else if (oldEntry.right == nil) {
+            temp = oldEntry.left;
+            transplant(oldEntry, oldEntry.left);
         } else {
-            deleteNode = treeMinimum(oldNode.right);
-            deleteOriginalColor = deleteNode.color;
-            temp = deleteNode.right;
+            deleteEntry = treeMinimum(oldEntry.right);
+            deleteOriginalColor = deleteEntry.color;
+            temp = deleteEntry.right;
 
-            if (deleteNode.parent == oldNode) {
-                temp.parent = deleteNode;
+            if (deleteEntry.parent == oldEntry) {
+                temp.parent = deleteEntry;
             } else {
-                transplant(deleteNode, deleteNode.right);
-                deleteNode.right = oldNode.right;
-                deleteNode.right.parent = deleteNode;
+                transplant(deleteEntry, deleteEntry.right);
+                deleteEntry.right = oldEntry.right;
+                deleteEntry.right.parent = deleteEntry;
             }
 
-            transplant(oldNode, deleteNode);
-            deleteNode.left = oldNode.left;
-            deleteNode.left.parent = deleteNode;
-            deleteNode.color = oldNode.color;
+            transplant(oldEntry, deleteEntry);
+            deleteEntry.left = oldEntry.left;
+            deleteEntry.left.parent = deleteEntry;
+            deleteEntry.color = oldEntry.color;
         }
 
         if (deleteOriginalColor == BLACK) {
             deleteFixUp(temp);
         }
         size--;
-        return deleteNode.value;
+        return deleteEntry.value;
     }
 
-    private void deleteFixUp(Node<K, V> node) {
-        while (node != root && !node.color) {
-            if (node == node.parent.left) {
-                Node<K, V> temp = node.parent.right;
+    private void deleteFixUp(Entry<K, V> entry) {
+        while (entry != root && !entry.color) {
+            if (entry == entry.parent.left) {
+                Entry<K, V> temp = entry.parent.right;
                 if (temp.color) {
                     temp.color = BLACK;
-                    node.parent.color = RED;
-                    leftRotate(node.parent);
-                    temp = node.parent.right;
+                    entry.parent.color = RED;
+                    leftRotate(entry.parent);
+                    temp = entry.parent.right;
                 }
                 if (!temp.left.color && !temp.right.color) {
                     temp.color = RED;
-                    node = node.parent;
+                    entry = entry.parent;
                 } else {
                     if (!temp.right.color) {
                         temp.left.color = BLACK;
                         temp.color = RED;
-                        rightRotate(node);
-                        temp = node.parent.right;
+                        rightRotate(entry);
+                        temp = entry.parent.right;
                     }
-                    temp.color = node.parent.color;
-                    node.parent.color = BLACK;
+                    temp.color = entry.parent.color;
+                    entry.parent.color = BLACK;
                     temp.right.color = BLACK;
-                    leftRotate(node.parent);
-                    node = root;
+                    leftRotate(entry.parent);
+                    entry = root;
                 }
             } else {
-                Node<K, V> temp = node.parent.right;
+                Entry<K, V> temp = entry.parent.right;
                 if (temp.color) {
                     temp.color = BLACK;
-                    node.parent.color = RED;
-                    rightRotate(node.parent);
-                    temp = node.parent.left;
+                    entry.parent.color = RED;
+                    rightRotate(entry.parent);
+                    temp = entry.parent.left;
                 }
                 if (!temp.right.color && !temp.left.color) {
                     temp.color = RED;
-                    node = node.parent;
+                    entry = entry.parent;
                 } else {
                     if (!temp.right.color) {
                         temp.right.color = BLACK;
                         temp.color = RED;
-                        leftRotate(node);
-                        temp = node.parent.left;
+                        leftRotate(entry);
+                        temp = entry.parent.left;
                     }
-                    temp.color = node.parent.color;
-                    node.parent.color = BLACK;
+                    temp.color = entry.parent.color;
+                    entry.parent.color = BLACK;
                     temp.left.color = BLACK;
-                    rightRotate(node.parent);
-                    node = root;
+                    rightRotate(entry.parent);
+                    entry = root;
                 }
             }
         }
     }
 
-    private Node treeMinimum(Node<K, V> node) {
-        while (node.left != nil) {
-            node = node.left;
+    private Entry treeMinimum(Entry<K, V> entry) {
+        while (entry.left != nil) {
+            entry = entry.left;
         }
-        return node;
+        return entry;
     }
 
-    private void transplant(final Node<K, V> oldNode, final Node<K, V> newNode) {
-        if (oldNode.parent == nil) {
-            root = newNode;
-        } else if (oldNode == oldNode.parent.left) {
-            oldNode.parent.left = newNode;
+    private void transplant(final Entry<K, V> oldEntry, final Entry<K, V> newEntry) {
+        if (oldEntry.parent == nil) {
+            root = newEntry;
+        } else if (oldEntry == oldEntry.parent.left) {
+            oldEntry.parent.left = newEntry;
         } else {
-            oldNode.parent.right = newNode;
+            oldEntry.parent.right = newEntry;
         }
-        oldNode.parent = newNode.parent;
+        oldEntry.parent = newEntry.parent;
     }
 
     public boolean contains(final K key) {
@@ -289,7 +289,7 @@ public class RedBlackTree<K extends Comparable<K>, V> {
 
     protected int getHeight() {
         int height = 0;
-        Node<K, V> temp = root;
+        Entry<K, V> temp = root;
         while (temp != nil) {
             height++;
             temp = temp.right;
@@ -297,15 +297,15 @@ public class RedBlackTree<K extends Comparable<K>, V> {
         return height;
     }
 
-    private class Node<K extends Comparable<K>, V> {
+    private class Entry<K extends Comparable<K>, V> {
         private K key;
         private V value;
-        private Node<K, V> parent;
-        private Node<K, V> left;
-        private Node<K, V> right;
+        private Entry<K, V> parent;
+        private Entry<K, V> left;
+        private Entry<K, V> right;
         private boolean color;
 
-        public Node(K key, V value) {
+        public Entry(K key, V value) {
             this.key = key;
             this.value = value;
             this.parent = nil;
