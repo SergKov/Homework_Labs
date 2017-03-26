@@ -36,16 +36,6 @@ public class MyCyclingBarrier {
         notifyAll();
         count = repeatCount;
     }
-
-    public static void main(String[] args) {
-        final MyCyclingBarrier myCyclingBarrier = new MyCyclingBarrier(3);
-        Thread thread1 = new Thread(new MyRunner(myCyclingBarrier));
-        thread1.start();
-        Thread thread2 = new Thread(new MyRunner(myCyclingBarrier));
-        thread2.start();
-        Thread thread3 = new Thread(new MyRunner(myCyclingBarrier));
-        thread3.start();
-    }
 }
 
 class MyRunner implements Runnable {

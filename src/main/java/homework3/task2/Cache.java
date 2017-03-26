@@ -26,11 +26,7 @@ public class Cache {
 
     public byte[] get(final String key) throws IOException {
         final Optional<SoftReference<byte[]>> optionalValue = Optional.of(cache.get(key));
-        if (optionalValue.isPresent()) {
-            return getFromCache(key);
-        } else {
-            return findFromFileAndPutToCache(key);
-        }
+        return optionalValue.isPresent() ? getFromCache(key) : findFromFileAndPutToCache(key);
     }
 
     protected byte[] getFromCache(String key) throws IOException {
